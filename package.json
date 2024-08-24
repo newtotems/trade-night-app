@@ -11,7 +11,9 @@
 		"debug": "run-p debug:eleventy start:tailwind",
 		"debug:eleventy": "DEBUG=Eleventy* npx @11ty/eleventy --serve --quiet",
 		"debugstart": "DEBUG=Eleventy* npx @11ty/eleventy --serve --quiet",
-		"benchmark": "DEBUG=Eleventy:Benchmark* npx @11ty/eleventy"
+		"benchmark": "DEBUG=Eleventy:Benchmark* npx @11ty/eleventy",
+		"build:css": "npx tailwindcss -i ./public/css/index.css -o ./_site/css/index.css",
+		"build:all": "npm run build:css && npm run build"
 	},
 	"repository": {
 		"type": "git",
