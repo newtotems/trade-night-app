@@ -1,16 +1,34 @@
 <h2>Event Calendar</h2>
 
-<table>
-  <thead>
-    <tr>
-      <th>Event ID</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for event in eventlist %}
-    <tr>
-      <td>{{ event.Id }}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+{% if eventlist %}
+  <table>
+    <thead>
+      <tr>
+        <th>Event ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for event in eventlist %}
+        {% if event.Id %}
+          <tr>
+            <td>{{ event.Id }}</td>
+          </tr>
+        {% else %}
+          <tr>
+            <td style="color: red;">Error: Event ID missing</td>
+          </tr>
+        {% endif %}
+      {% else %}
+        <tr>
+          <td style="color: red;">No events found in eventlist</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p style="color: red;">Error: eventlist is undefined or empty</p>
+{% endif %}
+
+<script>
+  console.log('eventlist:', {{ eventlist | dump | safe }});
+</script>
