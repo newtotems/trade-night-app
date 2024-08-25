@@ -38,17 +38,17 @@
 
     <!-- Right Content -->
     <div class="grow pb-8 group-last:pb-0">
-      {% for event in group.events %}
-        <div class="relative w-full pb-[140%] rounded-lg overflow-hidden shadow-md">
-          <div class="absolute inset-0 bg-white dark:bg-gray-800 p-4 flex flex-col">
-            <h3 class="text-lg font-semibold mb-2">{{ event.title }}</h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">{{ event.location }}</p>
-            <p class="text-sm mb-2">{{ event.date | readableDate("h:mm a") }}</p>
-            <p class="text-sm flex-grow">{{ event.description }}</p>
-            <a href="{{ event.url }}" class="mt-auto text-blue-600 dark:text-blue-400 hover:underline">Learn more</a>
+      <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
+        {% for event in group.events %}
+          <div class="aspect-[2/3] bg-gray-200 rounded-lg overflow-hidden relative">
+            <div class="p-4">
+              <h3 class="font-bold">{{ event.title }}</h3>
+              <p>{{ event.location }}</p>
+              <p>{{ event.date | readableDate('HH:mm') }}</p>
+            </div>
           </div>
-        </div>
-      {% endfor %}
+        {% endfor %}
+      </div>
     </div>
     <!-- End Right Content -->
   </div>
