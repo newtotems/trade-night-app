@@ -15,8 +15,9 @@ layout: layouts/base-trade.njk
     <div class="flex flex-col md:flex-row h-full">
       <div class="w-full h-1/2 md:w-1/2 md:h-screen flex items-center justify-center relative">
         <video id="cameraFeed" class="absolute inset-0 w-full h-full object-cover z-0" autoplay playsinline></video>
-        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 aspect-[5/7] border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center max-w-[200px]">
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 aspect-[5/7] border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center max-w-[200px]">
           <p class="text-white text-center px-4 py-2">Place cards here to add to the trade</p>
+          <button class="mt-auto mb-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300">Add to Trade</button>
         </div>
         <div class="absolute bottom-4 left-4 md:right-1/2 bg-gray-200 rounded-lg p-4">
           <p class="text-center">Trade Details</p>
