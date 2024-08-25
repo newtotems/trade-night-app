@@ -47,6 +47,8 @@
               {% if eventType %}
                 <p class="mt-2 font-semibold">{{ eventType.name }}</p>
                 <p class="text-sm">{{ eventType.description }}</p>
+              {% else %}
+                <p class="mt-2 text-red-500">Event type not found (ID: {{ event.eventTypeId }})</p>
               {% endif %}
             </div>
           </div>
@@ -62,4 +64,13 @@
 
 <script>
   console.log('eventlist:', {{ eventlist | dump | safe }});
+  console.log('eventtypes:', {{ eventtypes | dump | safe }});
+
+  // Error logging for event types
+  {% for event in eventlist %}
+    {% set eventType = eventtypes | getEventType(event.eventTypeId) %}
+    {% if not eventType %}
+      console.error('Event type not found for event:', {{ event | dump | safe }});
+    {% endif %}
+  {% endfor %}
 </script>
