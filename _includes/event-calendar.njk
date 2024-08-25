@@ -7,9 +7,9 @@
   {% for event in sortedEvents %}
     {% set dateKey = event.date | readableDate('yyyy-MM-dd') %}
     {% if not groupedEvents[dateKey] %}
-      {% set _ = groupedEvents[dateKey] = [] %}
+      {% set groupedEvents = (groupedEvents.update({(dateKey): []}), groupedEvents) %}
     {% endif %}
-    {% set _ = groupedEvents[dateKey].push(event) %}
+    {% set groupedEvents = (groupedEvents[dateKey].push(event), groupedEvents) %}
   {% endfor %}
 
   {% for dateKey, events in groupedEvents %}
