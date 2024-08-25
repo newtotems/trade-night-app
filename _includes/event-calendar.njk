@@ -1,33 +1,30 @@
 <h2>Event Calendar</h2>
 
-{% if eventlist %}
-  <table>
-    <thead>
-      <tr>
-        <th>Event ID</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for event in eventlist %}
-        {% if event.Id %}
-          <tr>
-            <td>{{ event.Id }}</td>
-          </tr>
-        {% else %}
-          <tr>
-            <td style="color: red;">Error: Event ID missing</td>
-          </tr>
-        {% endif %}
-      {% else %}
-        <tr>
-          <td style="color: red;">No events found in eventlist</td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-{% else %}
-  <p style="color: red;">Error: eventlist is undefined or empty</p>
-{% endif %}
+<!-- Timeline -->
+<div>
+  {% for event in eventlist %}
+  <!-- Item -->
+  <div class="group relative flex gap-x-5">
+    <!-- Icon -->
+    <div class="relative group-last:after:hidden after:absolute after:top-8 after:bottom-2 after:start-3 after:w-px after:-translate-x-[0.5px] after:bg-gray-200 dark:after:bg-neutral-700">
+      <div class="relative z-10 flex flex-col justify-center items-center text-xs text-gray-600 dark:text-neutral-400">
+        <span>{{ event.date | date("ddd") | upper }}</span>
+        <span>{{ event.date | date("MMM") | upper }}</span>
+        <span>{{ event.date | date("DD") }}</span>
+      </div>
+    </div>
+    <!-- End Icon -->
+
+    <!-- Right Content -->
+    <div class="grow pb-8 group-last:pb-0">
+      {{ event.location }}
+    </div>
+    <!-- End Right Content -->
+  </div>
+  <!-- End Item -->
+  {% endfor %}
+</div>
+<!-- End Timeline -->
 
 <script>
   console.log('eventlist:', {{ eventlist | dump | safe }});
