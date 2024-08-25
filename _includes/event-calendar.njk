@@ -8,9 +8,9 @@
     <!-- Icon -->
     <div class="relative group-last:after:hidden after:absolute after:top-8 after:bottom-2 after:start-3 after:w-px after:-translate-x-[0.5px] after:bg-gray-200 dark:after:bg-neutral-700">
       <div class="relative z-10 flex flex-col justify-center items-center text-xs text-gray-600 dark:text-neutral-400">
-        <span>{{ event.date | date("ddd") | upper }}</span>
-        <span>{{ event.date | date("MMM") | upper }}</span>
-        <span>{{ event.date | date("DD") }}</span>
+        <span>{{ event.date | readableDate("ccc") | upper }}</span>
+        <span>{{ event.date | readableDate("LLL") | upper }}</span>
+        <span>{{ event.date | readableDate("dd") }}</span>
       </div>
     </div>
     <!-- End Icon -->
