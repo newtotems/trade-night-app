@@ -1,0 +1,12 @@
+---
+pagination:
+  data: eventlist
+  size: 1
+  alias: event
+permalink: "{{ event.url }}"
+---
+
+<h1>{{ event.title }}</h1>
+<p>Event Type: {{ event.eventTypeName }}</p>
+<p>Date: {{ event.date }}</p>
+<!-- Add more event details as needed -->

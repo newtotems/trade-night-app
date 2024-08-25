@@ -37,7 +37,8 @@ module.exports = async function() {
             {
               id: q.Select(['ref', 'id'], q.Var('event')),
               eventTypeName: q.Select(['data', 'name'], q.Var('eventType'), ''),
-              data: q.Select(['data'], q.Var('event'))
+              data: q.Select(['data'], q.Var('event')),
+              url: q.Concat(['/event/join/', q.Select(['ref', 'id'], q.Var('event'))])
             }
           )
         )
@@ -47,6 +48,7 @@ module.exports = async function() {
     return result.data.map(event => ({
       id: event.id,
       eventTypeName: event.eventTypeName,
+      url: event.url,
       ...event.data
     }));
   } catch (error) {
