@@ -3,31 +3,42 @@
 <!-- Timeline -->
 <div>
   {% set sortedEvents = eventlist | sort(attribute='date') %}
-  {% set groupedEvents = {} %}
+  {% set groupedEvents = [] %}
+  {% set currentDate = '' %}
+  {% set currentGroup = [] %}
+
   {% for event in sortedEvents %}
-    {% set dateKey = event.date | readableDate('yyyy-MM-dd') %}
-    {% if not groupedEvents[dateKey] %}
-      {% set groupedEvents = (groupedEvents.update({(dateKey): []}), groupedEvents) %}
+    {% set eventDate = event.date | readableDate('yyyy-MM-dd') %}
+    {% if eventDate != currentDate %}
+      {% if currentGroup.length > 0 %}
+        {% set groupedEvents = (groupedEvents.push({date: currentDate, events: currentGroup}), groupedEvents) %}
+      {% endif %}
+      {% set currentDate = eventDate %}
+      {% set currentGroup = [] %}
     {% endif %}
-    {% set groupedEvents = (groupedEvents[dateKey].push(event), groupedEvents) %}
+    {% set currentGroup = (currentGroup.push(event), currentGroup) %}
   {% endfor %}
 
-  {% for dateKey, events in groupedEvents %}
+  {% if currentGroup.length > 0 %}
+    {% set groupedEvents = (groupedEvents.push({date: currentDate, events: currentGroup}), groupedEvents) %}
+  {% endif %}
+
+  {% for group in groupedEvents %}
   <!-- Item -->
   <div class="group relative flex gap-x-5">
     <!-- Icon -->
     <div class="relative group-last:after:hidden after:absolute after:top-8 after:bottom-2 after:start-3 after:w-px after:-translate-x-[0.5px] after:bg-gray-200 dark:after:bg-neutral-700">
       <div class="relative z-10 flex flex-col justify-center items-center text-xs text-gray-600 dark:text-neutral-400">
-        <span>{{ events[0].date | readableDate("ccc") | upper }}</span>
-        <span>{{ events[0].date | readableDate("LLL") | upper }}</span>
-        <span>{{ events[0].date | readableDate("dd") }}</span>
+        <span>{{ group.events[0].date | readableDate("ccc") | upper }}</span>
+        <span>{{ group.events[0].date | readableDate("LLL") | upper }}</span>
+        <span>{{ group.events[0].date | readableDate("dd") }}</span>
       </div>
     </div>
     <!-- End Icon -->
 
     <!-- Right Content -->
     <div class="grow pb-8 group-last:pb-0">
-      {% for event in events %}
+      {% for event in group.events %}
         <div>{{ event.location }}</div>
       {% endfor %}
     </div>
