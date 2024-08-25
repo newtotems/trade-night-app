@@ -22,7 +22,10 @@ module.exports = async function() {
       )
     );
 
-    return result.data.map(event => event.data);
+    return result.data.map(event => ({
+      id: event.ref.id,
+      ...event.data
+    }));
   } catch (error) {
     console.error('Error fetching events:', error);
     return [];
