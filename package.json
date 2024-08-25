@@ -53,6 +53,7 @@
 		"wait-on": "^8.0.0"
 	},
 	"dependencies": {
+		"faunadb": "^4.8.0",
 		"preline": "^2.4.1"
 	}
 }
