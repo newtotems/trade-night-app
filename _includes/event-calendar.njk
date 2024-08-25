@@ -1,5 +1,5 @@
 <!-- Timeline -->
-<div>
+<div id="event-timeline">
   {% set sortedEvents = eventlist | sort(attribute='date') %}
   {% set groupedEvents = [] %}
   {% set currentDate = '' %}
@@ -23,7 +23,7 @@
 
   {% for group in groupedEvents %}
   <!-- Item -->
-  <div class="group relative flex gap-x-5{% if group.date == 'now' | readableDate('yyyy-MM-dd') %} today{% endif %}">
+  <div class="group relative flex gap-x-5" data-date="{{ group.date }}">
     <!-- Icon -->
     <div class="relative group-last:after:hidden after:absolute after:top-8 after:bottom-2 after:start-3 after:w-px after:-translate-x-[0.5px] after:bg-gray-200 dark:after:bg-neutral-700">
       <div class="relative z-10 flex flex-col justify-center items-center text-xs text-gray-600 dark:text-neutral-400">
@@ -55,6 +55,18 @@
   {% endfor %}
 </div>
 <!-- End Timeline -->
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const today = new Date().toISOString().split('T')[0];
+    const timelineItems = document.querySelectorAll('#event-timeline > div');
+    timelineItems.forEach(item => {
+      if (item.dataset.date === today) {
+        item.classList.add('today');
+      }
+    });
+  });
+</script>
 
 <script>
   console.log('eventlist:', {{ eventlist | dump | safe }});
