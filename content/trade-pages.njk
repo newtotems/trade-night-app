@@ -30,18 +30,6 @@ layout: layouts/base-trade.njk
 </div>
 
 <script>
-  function requestFullScreen() {
-    if (document.documentElement.requestFullscreen) {
-      document.documentElement.requestFullscreen();
-    } else if (document.documentElement.mozRequestFullScreen) { // Firefox
-      document.documentElement.mozRequestFullScreen();
-    } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari and Opera
-      document.documentElement.webkitRequestFullscreen();
-    } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
-      document.documentElement.msRequestFullscreen();
-    }
-  }
-
   async function startCamera() {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true });
@@ -53,7 +41,6 @@ layout: layouts/base-trade.njk
   }
 
   document.addEventListener('DOMContentLoaded', function() {
-    requestFullScreen();
     startCamera();
   });
 </script>
