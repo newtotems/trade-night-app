@@ -1,1 +1,16 @@
-event calendar
+<h2>Event Calendar</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Event ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for event in eventlist %}
+    <tr>
+      <td>{{ event.Id }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
