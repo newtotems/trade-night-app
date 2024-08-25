@@ -1,3 +1,4 @@
+
 <!-- Timeline -->
 <div>
   {% set sortedEvents = eventlist | sort(attribute='date') %}
@@ -38,22 +39,11 @@
     <div class="grow pb-8 group-last:pb-0">
       <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
         {% for event in group.events %}
-          {% if eventtypes %}
-            {% set eventType = eventtypes | getEventType(event.eventTypeId) %}
-          {% else %}
-            {% set eventType = null %}
-          {% endif %}
           <div class="aspect-[2/3] bg-gray-200 rounded-lg overflow-hidden relative">
             <div class="p-4">
               <h3 class="font-bold">{{ event.title }}</h3>
               <p>{{ event.location }}</p>
               <p>{{ event.date | readableDate('HH:mm') }}</p>
-              {% if eventType %}
-                <p class="mt-2 font-semibold">{{ eventType.name }}</p>
-                <p class="text-sm">{{ eventType.description }}</p>
-              {% else %}
-                <p class="mt-2 text-red-500">Event type not found (ID: {{ event.eventTypeId }})</p>
-              {% endif %}
             </div>
           </div>
         {% endfor %}
@@ -68,36 +58,4 @@
 
 <script>
   console.log('eventlist:', {{ eventlist | dump | safe }});
-  console.log('eventtypes:', {{ eventtypes | dump | safe }});
-  console.log('eventtypes type:', typeof {{ eventtypes | dump | safe }});
-  console.log('eventtypes length:', {{ eventtypes | length }});
-
-  // Check if eventtypes is iterable
-  try {
-    for (const type of {{ eventtypes | dump | safe }}) {
-      console.log('Event type:', type);
-    }
-  } catch (error) {
-    console.error('Error iterating over eventtypes:', error);
-  }
-
-  // Error logging for event types
-  {% for event in eventlist %}
-    {% set eventType = null %}
-    {% for type in eventtypes %}
-      {% if type.id == event.eventTypeId %}
-        {% set eventType = type %}
-      {% endif %}
-    {% endfor %}
-    {% if not eventType %}
-      console.error('Event type not found for event:', {{ event | dump | safe }});
-    {% else %}
-      console.log('Matched event type for event:', {{ event.title }}, 'Type:', {{ eventType | dump | safe }});
-    {% endif %}
-  {% endfor %}
-
-  // If eventtypes is empty, log more information about the context
-  {% if not eventtypes %}
-    console.log('Template context:', {{ this | dump | safe }});
-  {% endif %}
 </script>
