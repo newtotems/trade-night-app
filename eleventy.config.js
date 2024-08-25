@@ -128,6 +128,10 @@ module.exports = function(eleventyConfig) {
 		return eventtypes.find(type => type.id === eventTypeId);
 	});
 
+	eleventyConfig.addFilter('isInPast', function(date) {
+		return new Date(date) < new Date();
+	  });
+
 	return {
 		// Control which files Eleventy will process
 		// e.g.: *.md, *.njk, *.html, *.liquid
