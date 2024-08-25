@@ -3,10 +3,10 @@ pagination:
   data: eventlist
   size: 1
   alias: event
-permalink: "{{ event.url }}"
+permalink: "/event/join/{{ event.id }}/"
+layout: base.njk
 ---
-
 <h1>{{ event.title }}</h1>
 <p>Event Type: {{ event.eventTypeName }}</p>
-<p>Date: {{ event.date }}</p>
+<p>Date: {{ event.date | readableDate }}</p>
 <!-- Add more event details as needed -->
