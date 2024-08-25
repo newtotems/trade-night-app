@@ -2,24 +2,34 @@
 
 <!-- Timeline -->
 <div>
-  {% for event in eventlist %}
+  {% set sortedEvents = eventlist | sort(attribute='date') %}
+  {% set groupedEvents = {} %}
+  {% for event in sortedEvents %}
+    {% set dateKey = event.date | readableDate('yyyy-MM-dd') %}
+    {% if dateKey not in groupedEvents %}
+      {% set groupedEvents = groupedEvents | setAttribute(dateKey, []) %}
+    {% endif %}
+    {% set groupedEvents = groupedEvents | setAttribute(dateKey, (groupedEvents[dateKey] + [event])) %}
+  {% endfor %}
+
+  {% for dateKey, events in groupedEvents %}
   <!-- Item -->
   <div class="group relative flex gap-x-5">
     <!-- Icon -->
     <div class="relative group-last:after:hidden after:absolute after:top-8 after:bottom-2 after:start-3 after:w-px after:-translate-x-[0.5px] after:bg-gray-200 dark:after:bg-neutral-700">
       <div class="relative z-10 flex flex-col justify-center items-center text-xs text-gray-600 dark:text-neutral-400">
-        <!-- Debug output -->
-        
-        <span>{{ event.date | readableDate("ccc") | upper }}</span>
-        <span>{{ event.date | readableDate("LLL") | upper }}</span>
-        <span>{{ event.date | readableDate("dd") }}</span>
+        <span>{{ events[0].date | readableDate("ccc") | upper }}</span>
+        <span>{{ events[0].date | readableDate("LLL") | upper }}</span>
+        <span>{{ events[0].date | readableDate("dd") }}</span>
       </div>
     </div>
     <!-- End Icon -->
 
     <!-- Right Content -->
     <div class="grow pb-8 group-last:pb-0">
-      {{ event.location }}
+      {% for event in events %}
+        <div>{{ event.location }}</div>
+      {% endfor %}
     </div>
     <!-- End Right Content -->
   </div>
