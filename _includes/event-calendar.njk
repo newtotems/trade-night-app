@@ -38,12 +38,11 @@
     <div class="grow pb-8 group-last:pb-0">
       <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
         {% for event in group.events %}
-          {% set eventType = null %}
-          {% for type in eventtypes %}
-            {% if type.id == event.eventTypeId %}
-              {% set eventType = type %}
-            {% endif %}
-          {% endfor %}
+          {% if eventtypes %}
+            {% set eventType = eventtypes | getEventType(event.eventTypeId) %}
+          {% else %}
+            {% set eventType = null %}
+          {% endif %}
           <div class="aspect-[2/3] bg-gray-200 rounded-lg overflow-hidden relative">
             <div class="p-4">
               <h3 class="font-bold">{{ event.title }}</h3>
@@ -96,4 +95,9 @@
       console.log('Matched event type for event:', {{ event.title }}, 'Type:', {{ eventType | dump | safe }});
     {% endif %}
   {% endfor %}
+
+  // If eventtypes is empty, log more information about the context
+  {% if not eventtypes %}
+    console.log('Template context:', {{ this | dump | safe }});
+  {% endif %}
 </script>
