@@ -18,26 +18,13 @@ module.exports = async function() {
             )
           )
         ),
-        q.Lambda('ref', 
-          q.Let(
-            {
-              event: q.Get(q.Var('ref')),
-              eventType: q.Get(q.Ref(q.Collection('eventTypes'), q.Select(['data', 'eventTypeId'], q.Var('event'))))
-            },
-            {
-              id: q.Select(['ref', 'id'], q.Var('event')),
-              name: q.Select(['data', 'name'], q.Var('eventType')),
-              data: q.Select(['data'], q.Var('event'))
-            }
-          )
-        )
+        q.Lambda('ref', q.Get(q.Var('ref')))
       )
     );
 
-    return result.data.map(item => ({
-      id: item.id,
-      name: item.name,
-      ...item.data
+    return result.data.map(event => ({
+      id: event.ref.id,
+      ...event.data
     }));
   } catch (error) {
     console.error('Error fetching events:', error);
