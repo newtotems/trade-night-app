@@ -25,12 +25,12 @@ module.exports = async function() {
               event: q.Get(q.Var('ref')),
               eventType: q.Let(
                 {
-                  typeRef: q.Ref(q.Collection('eventTypes'), q.Select(['data', 'eventTypeId'], q.Var('event'), null))
+                  eventTypeRef: q.Match(q.Index('eventTypes_by_eventTypeId'), q.Select(['data', 'eventTypeId'], q.Var('event')))
                 },
                 q.If(
-                  q.And(q.IsRef(q.Var('typeRef')), q.Exists(q.Var('typeRef'))),
-                  q.Get(q.Var('typeRef')),
-                  null
+                  q.IsEmpty(q.Var('eventTypeRef')),
+                  null,
+                  q.Get(q.Select(0, q.Paginate(q.Var('eventTypeRef'))))
                 )
               )
             },
