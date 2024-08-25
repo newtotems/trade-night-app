@@ -128,12 +128,6 @@ module.exports = function(eleventyConfig) {
 		return eventtypes.find(type => type.id === eventTypeId);
 	});
 
-	eleventyConfig.addCollection("events", function(collectionApi) {
-		return collectionApi.getAll().filter(function(item) {
-			return item.url && item.url.startsWith("/event/join/");
-		});
-	});
-
 	return {
 		// Control which files Eleventy will process
 		// e.g.: *.md, *.njk, *.html, *.liquid
