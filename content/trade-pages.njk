@@ -6,9 +6,4 @@ pagination:
 permalink: "/event/trade/{{ event.id }}/"
 layout: layouts/home.njk
 ---
-
-{% if event.date | isInPast %}
-Event has finished
-{% else %}
-{{ event.id }}
-{% endif %}
+{{event.id}}
