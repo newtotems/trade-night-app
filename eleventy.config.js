@@ -41,7 +41,26 @@ module.exports = function(eleventyConfig) {
 	// Filters
 	eleventyConfig.addFilter("readableDate", (dateObj, format, zone) => {
 		// Formatting tokens for Luxon: https://moment.github.io/luxon/#/formatting?id=table-of-tokens
-		return DateTime.fromJSDate(dateObj, { zone: zone || "utc" }).toFormat(format || "dd LLLL yyyy");
+		let dt;
+		if (typeof dateObj === 'string') {
+			// Try parsing the string
+			dt = DateTime.fromISO(dateObj, { zone: zone || "utc" });
+			if (!dt.isValid) {
+				// If ISO parsing fails, try other common formats
+				dt = DateTime.fromFormat(dateObj, "yyyy-MM-dd", { zone: zone || "utc" });
+			}
+		} else if (dateObj instanceof Date) {
+			dt = DateTime.fromJSDate(dateObj, { zone: zone || "utc" });
+		} else {
+			// If dateObj is neither string nor Date, return an error message
+			return "Invalid date";
+		}
+
+		if (!dt.isValid) {
+			return "Invalid date";
+		}
+
+		return dt.toFormat(format || "dd LLLL yyyy");
 	});
 
 	eleventyConfig.addFilter('htmlDateString', (dateObj) => {
