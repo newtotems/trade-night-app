@@ -1,5 +1,3 @@
-<h2>Event Calendar</h2>
-
 <!-- Timeline -->
 <div>
   {% set sortedEvents = eventlist | sort(attribute='date') %}
@@ -40,11 +38,16 @@
     <div class="grow pb-8 group-last:pb-0">
       <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
         {% for event in group.events %}
+          {% set eventType = eventtypes | getEventType(event.eventTypeId) %}
           <div class="aspect-[2/3] bg-gray-200 rounded-lg overflow-hidden relative">
             <div class="p-4">
               <h3 class="font-bold">{{ event.title }}</h3>
               <p>{{ event.location }}</p>
               <p>{{ event.date | readableDate('HH:mm') }}</p>
+              {% if eventType %}
+                <p class="mt-2 font-semibold">{{ eventType.name }}</p>
+                <p class="text-sm">{{ eventType.description }}</p>
+              {% endif %}
             </div>
           </div>
         {% endfor %}

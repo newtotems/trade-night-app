@@ -124,6 +124,10 @@ module.exports = function(eleventyConfig) {
 
 	// eleventyConfig.setServerPassthroughCopyBehavior("passthrough");
 
+	eleventyConfig.addFilter("getEventType", function(eventtypes, eventTypeId) {
+		return eventtypes.find(type => type.id === eventTypeId);
+	});
+
 	return {
 		// Control which files Eleventy will process
 		// e.g.: *.md, *.njk, *.html, *.liquid
