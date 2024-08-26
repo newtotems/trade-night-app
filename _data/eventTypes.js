@@ -1,32 +1,32 @@
-const { Client, query: q } = require('faunadb');
+const faunadb = require('faunadb');
+const q = faunadb.query;
 
-// Initialize the Fauna client
-const client = new Client({
-  secret: process.env.FAUNA_SECRET_KEY,
-});
+module.exports = async function() {
+  const client = new faunadb.Client({ secret: process.env.FAUNA_SECRET });
 
-async function getEventTypes() {
   try {
     const result = await client.query(
       q.Map(
         q.Paginate(q.Documents(q.Collection('eventTypes'))),
-        q.Lambda('ref', 
+        q.Lambda(
+          'ref',
           q.Let(
-            { doc: q.Get(q.Var('ref')) },
             {
-              eventTypeId: q.Select(['data', 'eventTypeId'], q.Var('doc')),
-              name: q.Select(['data', 'name'], q.Var('doc'))
+              eventType: q.Get(q.Var('ref'))
+            },
+            {
+              eventId: q.Select(['data', 'eventTypeId'], q.Var('eventType')),
+              name: q.Select(['data', 'name'], q.Var('eventType'))
             }
           )
         )
       )
     );
 
+    console.log('Fetched event types:', result.data);
     return result.data;
   } catch (error) {
     console.error('Error fetching event types:', error);
     return [];
   }
-}
-
-module.exports = { getEventTypes };
+};
