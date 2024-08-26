@@ -1,4 +1,4 @@
-import { Client, query as q } from 'faunadb';
+const { Client, query: q } = require('faunadb');
 
 // Initialize the Fauna client
 const client = new Client({
