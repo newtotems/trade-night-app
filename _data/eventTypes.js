@@ -5,7 +5,7 @@ const client = new Client({
   secret: process.env.FAUNA_SECRET_KEY,
 });
 
-export async function getEventTypes() {
+async function getEventTypes() {
   try {
     const result = await client.query(
       q.Map(
@@ -28,3 +28,5 @@ export async function getEventTypes() {
     return [];
   }
 }
+
+module.exports = { getEventTypes };
