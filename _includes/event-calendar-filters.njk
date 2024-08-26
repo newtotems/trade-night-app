@@ -3,12 +3,20 @@
     <button type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white" data-filter=".eventType1">
       All
     </button>
-    {% for eventType in eventTypes %}
-    <button type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white" data-filter=".eventType{{ eventType.eventId }}">
-      {{ eventType.name }}
-    </button>
-    {% endfor %}
+    {% if eventTypes %}
+      {% for eventType in eventTypes %}
+        <button type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white" data-filter=".eventType{{ eventType.eventId }}">
+          {{ eventType.name }}
+        </button>
+      {% endfor %}
+    {% else %}
+      <p>No event types found.</p>
+    {% endif %}
   </div>
 </div>
 
-    
+<!-- Debug information -->
+<div class="mt-4">
+  <p>Debug: Number of event types: {{ eventTypes | length }}</p>
+  <p>Debug: Event types: {{ eventTypes | dump | safe }}</p>
+</div>
