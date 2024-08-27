@@ -63,12 +63,10 @@ document.addEventListener('DOMContentLoaded', function() {
   {% set groupedSubTypes = {} %}
   {% for subType in eventSubTypes %}
     {% set eventTypeId = subType.eventTypeId | string %}
-    {% if eventTypeId not in groupedSubTypes %}
-      {% set groupedSubTypes = groupedSubTypes | merge({(eventTypeId): []}) %}
+    {% if not groupedSubTypes[eventTypeId] %}
+      {% set groupedSubTypes = groupedSubTypes | merge({eventTypeId: []}) %}
     {% endif %}
-    {% set groupedSubTypes = groupedSubTypes | merge({
-      (eventTypeId): (groupedSubTypes[eventTypeId] + [subType])
-    }) %}
+    {% set _ = groupedSubTypes[eventTypeId].push(subType) %}
   {% endfor %}
 
   {% for eventTypeId, subTypes in groupedSubTypes %}
