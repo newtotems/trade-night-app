@@ -54,7 +54,10 @@ document.addEventListener('DOMContentLoaded', function() {
           item.style.display = '';
         }
       });
-      // No need to hide subtype groups here, they're already hidden
+      // Hide all subtype groups when 'all' is selected
+      subtypeGroups.forEach(group => {
+        group.style.display = 'none';
+      });
     } else {
       filteredItems.forEach(item => {
         if (item.classList.contains(filter)) {
@@ -81,6 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // No need to apply 'all' filter on initial page load, as subtype groups are already hidden
+  // Apply 'all' filter on initial page load
+  applyFilter('all');
 });
 </script>

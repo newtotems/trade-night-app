@@ -6,7 +6,7 @@ pagination:
 permalink: "/event/join/{{ event.id }}/"
 layout: layouts/home.njk
 ---
-<div class="md:p-8 h-screen flex flex-col relative">
+<div class="md:p-8 h-screen flex flex-col relative max-w-[1024px] mx-auto">
   <p class="absolute top-4 right-4 text-sm text-gray-600">{{ event.date | readableDate }}</p>
 
   <div class="flex-grow overflow-y-auto mb-16">
