@@ -1,21 +1,33 @@
-import { query as q } from 'faunadb'
-import { faunaClient } from '../utils/fauna-auth'
+const faunadb = require('faunadb');
+const q = faunadb.query;
 
-export default async function getEventSubTypes() {
+module.exports = async function() {
+  const client = new faunadb.Client({ secret: process.env.FAUNA_SECRET });
+
   try {
-    const { data } = await faunaClient.query(
+    const result = await client.query(
       q.Map(
         q.Paginate(q.Documents(q.Collection('eventSubTypes'))),
-        q.Lambda('ref', q.Get(q.Var('ref')))
+        q.Lambda(
+          'ref',
+          q.Let(
+            {
+              eventSubType: q.Get(q.Var('ref'))
+            },
+            {
+              eventSubTypeId: q.Select(['data', 'eventSubTypeId'], q.Var('eventSubType')),
+              eventTypeId: q.Select(['data', 'eventTypeId'], q.Var('eventSubType')),
+              name: q.Select(['data', 'name'], q.Var('eventSubType'))
+            }
+          )
+        )
       )
-    )
+    );
 
-    return data.map((item) => ({
-      id: item.ref.id,
-      ...item.data,
-    }))
+    console.log('Fetched event subtypes:', result.data);
+    return result.data;
   } catch (error) {
-    console.error('Error fetching event sub types:', error)
-    return []
+    console.error('Error fetching event subtypes:', error);
+    return [];
   }
-}
+};
