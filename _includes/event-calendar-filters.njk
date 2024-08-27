@@ -19,18 +19,40 @@
 document.addEventListener('DOMContentLoaded', function() {
   const filterButtons = document.querySelectorAll('.filter-button');
   const eventItems = document.querySelectorAll('.event-containergroup > *');
+  const subTypeGroups = document.querySelectorAll('.filtered');
 
   filterButtons.forEach(button => {
     button.addEventListener('click', function() {
       const filter = this.getAttribute('data-filter');
       
-      eventItems.forEach(item => {
-        if (filter === 'all' || item.classList.contains(filter)) {
-          item.style.display = '';
-        } else {
-          item.style.display = 'none';
-        }
-      });
+      if (filter.startsWith('eventType') || filter === 'all') {
+        // Main event type filtering
+        eventItems.forEach(item => {
+          if (filter === 'all' || item.classList.contains(filter)) {
+            item.style.display = '';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+
+        // Show/hide subtype groups
+        subTypeGroups.forEach(group => {
+          if (filter === 'all' || group.classList.contains(filter)) {
+            group.style.display = '';
+          } else {
+            group.style.display = 'none';
+          }
+        });
+      } else if (filter.startsWith('eventSubType')) {
+        // Subtype filtering
+        eventItems.forEach(item => {
+          if (item.classList.contains(filter)) {
+            item.style.display = '';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      }
     });
   });
 });
