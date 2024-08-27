@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
   {% endfor %}
 
   {% for eventTypeId, subTypes in groupedSubTypes %}
-    <div class="inline-flex rounded-md shadow-sm mb-2" role="group">
+    <div class="inline-flex rounded-md shadow-sm mb-2 filtered eventType{{ eventTypeId }}" role="group">
       {% for subType in subTypes %}
         <button type="button" class="filter-button px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white" data-filter="eventSubType{{ subType.eventSubTypeId }}">
           {{ subType.name }}
