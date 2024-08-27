@@ -30,14 +30,14 @@ module.exports = async function() {
                 q.If(
                   q.IsEmpty(q.Var('eventTypeRef')),
                   null,
-                  q.Get(q.Select(0, q.Paginate(q.Var('eventTypeRef'))))
+                  q.Get(q.Select(0, q.Var('eventTypeRef')))
                 )
               )
             },
             {
               id: q.Select(['ref', 'id'], q.Var('event')),
-              eventTypeName: q.Select(['data', 'name'], q.Var('eventType'), ''),
-              eventTypeData: q.Select(['data'], q.Var('eventType'), {}),
+              eventTypeName: q.Select(['data', 'name'], q.Var('eventType'), null),
+              eventTypeData: q.Select(['data'], q.Var('eventType'), null),
               data: q.Select(['data'], q.Var('event')),
               url: q.Concat(['/event/join/', q.Select(['ref', 'id'], q.Var('event'))])
             }
