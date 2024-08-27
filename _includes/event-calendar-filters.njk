@@ -43,33 +43,41 @@ document.addEventListener('DOMContentLoaded', function() {
   const filteredItems = document.querySelectorAll('.filtered');
   const subtypeGroups = document.querySelectorAll('.subtype-group');
 
+  // Function to apply filtering
+  function applyFilter(filter) {
+    if (filter === 'all') {
+      filteredItems.forEach(item => {
+        if (!item.classList.contains('subtype-group')) {
+          item.style.display = '';
+        }
+      });
+      subtypeGroups.forEach(group => group.style.display = 'none');
+    } else {
+      filteredItems.forEach(item => {
+        if (item.classList.contains(filter)) {
+          item.style.display = '';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+      subtypeGroups.forEach(group => {
+        if (group.classList.contains(filter)) {
+          group.style.display = '';
+        } else {
+          group.style.display = 'none';
+        }
+      });
+    }
+  }
+
+  // Apply 'all' filter on initial page load
+  applyFilter('all');
+
+  // Add click event listeners to filter buttons
   filterButtons.forEach(button => {
     button.addEventListener('click', function() {
       const filter = this.getAttribute('data-filter');
-      
-      if (filter === 'all') {
-        filteredItems.forEach(item => {
-          if (!item.classList.contains('subtype-group')) {
-            item.style.display = '';
-          }
-        });
-        subtypeGroups.forEach(group => group.style.display = 'none');
-      } else {
-        filteredItems.forEach(item => {
-          if (item.classList.contains(filter)) {
-            item.style.display = '';
-          } else {
-            item.style.display = 'none';
-          }
-        });
-        subtypeGroups.forEach(group => {
-          if (group.classList.contains(filter)) {
-            group.style.display = '';
-          } else {
-            group.style.display = 'none';
-          }
-        });
-      }
+      applyFilter(filter);
     });
   });
 });
