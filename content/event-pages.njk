@@ -6,7 +6,7 @@ pagination:
 permalink: "/event/join/{{ event.id }}/"
 layout: layouts/home.njk
 eleventyComputed:
-  eventTypes: "{{ eventTypes | default([]) }}"
+  eventTypes: "{{ eventTypes }}"
 ---
 
 {% set eventTypes = eventtypes | default([]) %}
