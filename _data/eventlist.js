@@ -25,7 +25,7 @@ module.exports = async function() {
               event: q.Get(q.Var('ref')),
               eventTypeId: q.Select(['data', 'eventTypeId'], q.Var('event')),
               eventTypeRef: q.Match(q.Index('eventTypes_by_eventTypeId'), q.Var('eventTypeId')),
-              eventType: q.If(
+              eventType: q.If(  
                 q.IsEmpty(q.Var('eventTypeRef')),
                 null,
                 q.Let(
