@@ -23,21 +23,20 @@ module.exports = async function() {
           q.Let(
             {
               event: q.Get(q.Var('ref')),
-              eventType: q.Let(
-                {
-                  eventTypeRef: q.Match(q.Index('events_type'), q.Select(['data', 'eventTypeId'], q.Var('event')))
-                },
-                q.If(
-                  q.IsEmpty(q.Var('eventTypeRef')),
-                  null,
-                  q.Get(q.Select(0, q.Var('eventTypeRef')))
-                )
+              eventTypeId: q.Select(['data', 'eventTypeId'], q.Var('event')),
+              eventTypeRef: q.Match(q.Index('events_type'), q.Var('eventTypeId')),
+              eventType: q.If(
+                q.IsEmpty(q.Var('eventTypeRef')),
+                null,
+                q.Get(q.Select(0, q.Var('eventTypeRef')))
               )
             },
             {
               id: q.Select(['ref', 'id'], q.Var('event')),
               eventTypeName: q.Select(['data', 'name'], q.Var('eventType'), null),
               eventTypeData: q.Select(['data'], q.Var('eventType'), null),
+              eventTypeId: q.Var('eventTypeId'),
+              eventTypeRefExists: q.Not(q.IsEmpty(q.Var('eventTypeRef'))),
               data: q.Select(['data'], q.Var('event')),
               url: q.Concat(['/event/join/', q.Select(['ref', 'id'], q.Var('event'))])
             }
@@ -50,6 +49,8 @@ module.exports = async function() {
       id: event.id,
       eventTypeName: event.eventTypeName,
       eventTypeData: event.eventTypeData,
+      eventTypeId: event.eventTypeId,
+      eventTypeRefExists: event.eventTypeRefExists,
       url: event.url,
       ...event.data
     }));
