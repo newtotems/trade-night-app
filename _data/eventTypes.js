@@ -10,7 +10,7 @@ module.exports = async function() {
         q.Paginate(q.Documents(q.Collection('eventTypes'))),
         q.Lambda(
           'ref',
-          q.Get(q.Var('ref'))
+          q.Select(['data'], q.Get(q.Var('ref')))
         )
       )
     );
