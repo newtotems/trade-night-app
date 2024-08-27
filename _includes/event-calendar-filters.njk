@@ -18,13 +18,13 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const filterButtons = document.querySelectorAll('.filter-button');
-  const eventItems = document.querySelectorAll('.event-containergroup > *');
+  const filteredItems = document.querySelectorAll('.filtered');
 
   filterButtons.forEach(button => {
     button.addEventListener('click', function() {
       const filter = this.getAttribute('data-filter');
       
-      eventItems.forEach(item => {
+      filteredItems.forEach(item => {
         if (filter === 'all' || item.classList.contains(filter)) {
           item.style.display = '';
         } else {
