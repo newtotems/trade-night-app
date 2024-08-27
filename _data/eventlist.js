@@ -28,13 +28,19 @@ module.exports = async function() {
               eventType: q.If(
                 q.IsEmpty(q.Var('eventTypeRef')),
                 null,
-                q.Get(q.Select(0, q.Var('eventTypeRef')))
+                q.Let(
+                  { eventTypeDoc: q.Get(q.Select(0, q.Var('eventTypeRef'))) },
+                  {
+                    name: q.Select(['data', 'name'], q.Var('eventTypeDoc'), null),
+                    data: q.Select(['data'], q.Var('eventTypeDoc'), null)
+                  }
+                )
               )
             },
             {
               id: q.Select(['ref', 'id'], q.Var('event')),
-              eventTypeName: q.Select(['data', 'name'], q.Var('eventType'), null),
-              eventTypeData: q.Select(['data'], q.Var('eventType'), null),
+              eventTypeName: q.Select('name', q.Var('eventType'), null),
+              eventTypeData: q.Select('data', q.Var('eventType'), null),
               eventTypeId: q.Var('eventTypeId'),
               eventTypeRefExists: q.Not(q.IsEmpty(q.Var('eventTypeRef'))),
               data: q.Select(['data'], q.Var('event')),
