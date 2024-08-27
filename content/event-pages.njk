@@ -9,28 +9,6 @@ eleventyComputed:
   eventTypes: "{{ eventTypes }}"
 ---
 
- {% if eventTypes %}
-      <script>
-        console.log('Event Types:', {{ eventTypes | dump | safe }});
-      </script>
-      {% for eventType in eventTypes %}
-        <button type="button" class="filter-button px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white" data-filter="eventType{{ eventType.eventTypeId }}">
-          {{ eventType.name }}
-        </button>
-      {% endfor %}
-    {% else %}
-      <p>No event types found.</p>
-    {% endif %}
-
-{% set eventTypes = eventTypes | default([]) %}
-{% set eventType = eventTypes | selectattr("id", "equalto", event.eventTypeId) | first %}
-{% if eventType %}
-  <div class="inline-block px-3 py-1 text-sm font-semibold text-white bg-blue-500 rounded-full mb-4">
-    {{ eventType.name }}
-  </div>
-{% endif %}
-{{eventTypes | dump }}
-
 <h1>{{ event.title }}</h1>
 <p>Event Type: {{ event.eventTypeName }}</p>
 <p>Date: {{ event.date | readableDate }}</p>
