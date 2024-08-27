@@ -8,7 +8,8 @@ layout: layouts/home.njk
 ---
 
 <h1>{{ event.title }}</h1>
-<p>Event Type: {{ event.eventTypeData.name }}</p>
+<p>{{ event.eventTypeData.name }}</p>
+<p>{{ event.eventSubTypeData.name }}</p>
 <p>Date: {{ event.date | readableDate }}</p>
 <!-- Add more event details as needed -->
 
