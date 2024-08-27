@@ -29,6 +29,7 @@ eleventyComputed:
 
 <script>
   console.log('Event Data:', JSON.parse('{{ event | dump | safe | replace("'", "\\'") }}'));
+  console.log('Event Types:', JSON.parse('{{ eventTypes | dump | safe | replace("'", "\\'") }}'));
 </script>
 
 
