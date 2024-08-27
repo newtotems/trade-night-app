@@ -37,13 +37,30 @@ module.exports = async function() {
       return acc;
     }, {});
 
-    // Combine event data with event type data
+    // Fetch all event sub types
+    const eventSubTypesResult = await client.query(
+      q.Map(
+        q.Paginate(q.Documents(q.Collection('eventSubTypes'))),
+        q.Lambda('ref', q.Get(q.Var('ref')))
+      )
+    );
+
+    // Create a map of event sub types for easy lookup
+    const eventSubTypesMap = eventSubTypesResult.data.reduce((acc, subType) => {
+      acc[subType.data.eventTypeId] = subType.data;
+      return acc;
+    }, {});
+
+    // Combine event data with event type and sub type data
     const combinedEvents = eventsResult.data.map(event => {
       const eventTypeData = eventTypesMap[event.data.eventTypeId] || null;
+      const eventSubTypeData = eventSubTypesMap[event.data.eventTypeId] || null;
       return {
         id: event.ref.id,
         eventTypeData,
+        eventSubTypeData,
         eventTypeRefExists: !!eventTypeData,
+        eventSubTypeRefExists: !!eventSubTypeData,
         url: `/event/join/${event.ref.id}`,
         ...event.data
       };
