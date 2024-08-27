@@ -18,13 +18,13 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const filterButtons = document.querySelectorAll('.filter-button');
-  const filteredItems = document.querySelectorAll('.filtered');
+  const eventItems = document.querySelectorAll('.event-containergroup > *');
 
   filterButtons.forEach(button => {
     button.addEventListener('click', function() {
       const filter = this.getAttribute('data-filter');
       
-      filteredItems.forEach(item => {
+      eventItems.forEach(item => {
         if (filter === 'all' || item.classList.contains(filter)) {
           item.style.display = '';
         } else {
@@ -35,3 +35,24 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 </script>
+
+<!-- New grouped buttons for event subtypes -->
+<div class="flex flex-col items-center mt-6">
+  {% set groupedSubTypes = {} %}
+  {% for subType in eventSubTypes %}
+    {% if subType.eventTypeId not in groupedSubTypes %}
+      {% set groupedSubTypes = groupedSubTypes | setAttribute(subType.eventTypeId, []) %}
+    {% endif %}
+    {% set groupedSubTypes = groupedSubTypes | setAttribute(subType.eventTypeId, groupedSubTypes[subType.eventTypeId] | push(subType)) %}
+  {% endfor %}
+
+  {% for eventTypeId, subTypes in groupedSubTypes %}
+    <div class="inline-flex rounded-md shadow-sm mb-2" role="group">
+      {% for subType in subTypes %}
+        <button type="button" class="filter-button px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white" data-filter="eventSubType{{ subType.eventSubTypeId }}">
+          {{ subType.name }}
+        </button>
+      {% endfor %}
+    </div>
+  {% endfor %}
+</div>
