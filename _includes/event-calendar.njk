@@ -31,7 +31,7 @@
         {%- set eventTypeIds = (eventTypeIds.push(event.eventTypeId), eventTypeIds) -%}
       {% endif %}
     {%- endfor -%}">
-    <!-- Icon -->
+    <!-- Icon (Left Column) -->
     <div class="relative group-last:after:hidden after:absolute after:top-8 after:bottom-2 after:start-3 after:w-px after:-translate-x-[0.5px] after:bg-gray-200 dark:after:bg-neutral-700 ">
       <div class="relative z-10 flex flex-col justify-center items-center text-xs text-gray-600 dark:text-neutral-400">
         <span>{{ group.events[0].date | readableDate("ccc") | upper }}</span>
