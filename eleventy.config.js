@@ -132,6 +132,11 @@ module.exports = function(eleventyConfig) {
 		return new Date(date) < new Date();
 	  });
 
+	  eleventyConfig.addFilter("setAttribute", function(obj, key, value) {
+		obj[key] = value;
+		return obj;
+	  });	
+
 	return {
 		// Control which files Eleventy will process
 		// e.g.: *.md, *.njk, *.html, *.liquid

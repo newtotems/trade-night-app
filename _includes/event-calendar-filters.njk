@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
   {% for subType in eventSubTypes %}
     {% set eventTypeId = subType.eventTypeId | string %}
     {% if not groupedSubTypes[eventTypeId] %}
-      {% set groupedSubTypes = groupedSubTypes | merge({eventTypeId: []}) %}
+      {% set groupedSubTypes = groupedSubTypes | setAttribute(eventTypeId, []) %}
     {% endif %}
     {% set _ = groupedSubTypes[eventTypeId].push(subType) %}
   {% endfor %}
