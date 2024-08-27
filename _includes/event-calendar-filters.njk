@@ -40,10 +40,10 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="flex flex-col items-center mt-6">
   {% set groupedSubTypes = {} %}
   {% for subType in eventSubTypes %}
-    {% if subType.eventTypeId not in groupedSubTypes %}
-      {% set groupedSubTypes = groupedSubTypes | setAttribute(subType.eventTypeId, []) %}
+    {% if not groupedSubTypes[subType.eventTypeId] %}
+      {% set groupedSubTypes = (groupedSubTypes.update({(subType.eventTypeId): []}), groupedSubTypes) %}
     {% endif %}
-    {% set groupedSubTypes = groupedSubTypes | setAttribute(subType.eventTypeId, groupedSubTypes[subType.eventTypeId] | push(subType)) %}
+    {% set _ = groupedSubTypes[subType.eventTypeId].push(subType) %}
   {% endfor %}
 
   {% for eventTypeId, subTypes in groupedSubTypes %}
