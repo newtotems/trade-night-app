@@ -16,7 +16,7 @@ eleventyComputed:
     {{ eventType.name }}
   </div>
 {% endif %}
-
+{{eventTypes | dump }}
 
 <h1>{{ event.title }}</h1>
 <p>Event Type: {{ event.eventTypeName }}</p>
