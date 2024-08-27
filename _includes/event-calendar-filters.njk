@@ -27,7 +27,7 @@
   {% endfor %}
 
   {% for eventTypeId, subTypes in groupedSubTypes %}
-    <div class="inline-flex rounded-md shadow-sm mb-2 filtered eventType{{ eventTypeId }}" role="group">
+    <div class="subtype-group inline-flex rounded-md shadow-sm mb-2 filtered eventType{{ eventTypeId }}" role="group">
       {% for subType in subTypes %}
         <button type="button" class="subtype-button px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white" data-subtype="{{ subType.eventSubTypeId }}">
           {{ subType.name }}
@@ -41,19 +41,32 @@
 document.addEventListener('DOMContentLoaded', function() {
   const filterButtons = document.querySelectorAll('.filter-button');
   const filteredItems = document.querySelectorAll('.filtered');
+  const subtypeGroups = document.querySelectorAll('.subtype-group');
 
   filterButtons.forEach(button => {
     button.addEventListener('click', function() {
       const filter = this.getAttribute('data-filter');
       
       if (filter === 'all') {
-        filteredItems.forEach(item => item.style.display = '');
+        filteredItems.forEach(item => {
+          if (!item.classList.contains('subtype-group')) {
+            item.style.display = '';
+          }
+        });
+        subtypeGroups.forEach(group => group.style.display = 'none');
       } else {
         filteredItems.forEach(item => {
           if (item.classList.contains(filter)) {
             item.style.display = '';
           } else {
             item.style.display = 'none';
+          }
+        });
+        subtypeGroups.forEach(group => {
+          if (group.classList.contains(filter)) {
+            group.style.display = '';
+          } else {
+            group.style.display = 'none';
           }
         });
       }
