@@ -137,6 +137,12 @@ module.exports = function(eleventyConfig) {
 		return obj;
 	  });	
 
+	// Enable async data files
+	eleventyConfig.setFrontMatterParsingOptions({
+		excerpt: true,
+		excerpt_separator: "<!-- excerpt -->",
+	});
+
 	return {
 		// Control which files Eleventy will process
 		// e.g.: *.md, *.njk, *.html, *.liquid
