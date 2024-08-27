@@ -7,7 +7,8 @@ module.exports = async function() {
   const now = new Date().toISOString();
 
   try {
-    const result = await client.query(
+    // First, fetch all future events
+    const eventsResult = await client.query(
       q.Map(
         q.Paginate(
           q.Filter(
@@ -18,50 +19,50 @@ module.exports = async function() {
             )
           )
         ),
-        q.Lambda(
-          'ref',
-          q.Let(
-            {
-              event: q.Get(q.Var('ref')),
-              eventTypeId: q.Select(['data', 'eventTypeId'], q.Var('event')),
-              eventTypeRef: q.Match(q.Index('eventTypes_by_eventTypeId'), q.Var('eventTypeId')),
-              eventType: q.If(  
-                q.IsEmpty(q.Var('eventTypeRef')),
-                null,
-                q.Let(
-                  { eventTypeDoc: q.Get(q.Select(0, q.Var('eventTypeRef'))) },
-                  {
-                    name: q.Select(['data', 'name'], q.Var('eventTypeDoc'), null),
-                    data: q.Select(['data'], q.Var('eventTypeDoc'), null)
-                  }
-                )
-              )
-            },
-            {
-              id: q.Select(['ref', 'id'], q.Var('event')),
-              eventTypeName: q.Select('name', q.Var('eventType'), null),
-              eventTypeData: q.Select('data', q.Var('eventType'), null),
-              eventTypeId: q.Var('eventTypeId'),
-              eventTypeRefExists: q.Not(q.IsEmpty(q.Var('eventTypeRef'))),
-              data: q.Select(['data'], q.Var('event')),
-              url: q.Concat(['/event/join/', q.Select(['ref', 'id'], q.Var('event'))])
-            }
-          )
-        )
+        q.Lambda('ref', q.Get(q.Var('ref')))
       )
     );
 
-    return result.data.map(event => ({
-      id: event.id,
-      eventTypeName: event.eventTypeName,
-      eventTypeData: event.eventTypeData,
-      eventTypeId: event.eventTypeId,
-      eventTypeRefExists: event.eventTypeRefExists,
-      url: event.url,
-      ...event.data
-    }));
+    console.log('Events result:', JSON.stringify(eventsResult, null, 2));
+
+    // Then, fetch all event types
+    const eventTypesResult = await client.query(
+      q.Map(
+        q.Paginate(q.Documents(q.Collection('eventTypes'))),
+        q.Lambda('ref', q.Get(q.Var('ref')))
+      )
+    );
+
+    console.log('Event types result:', JSON.stringify(eventTypesResult, null, 2));
+
+    // Create a map of event types for easy lookup
+    const eventTypesMap = eventTypesResult.data.reduce((acc, eventType) => {
+      acc[eventType.data.eventTypeId] = eventType.data;
+      return acc;
+    }, {});
+
+    // Combine event data with event type data
+    const combinedEvents = eventsResult.data.map(event => {
+      const eventTypeData = eventTypesMap[event.data.eventTypeId] || null;
+      return {
+        id: event.ref.id,
+        eventTypeName: eventTypeData ? eventTypeData.name : null,
+        eventTypeData: eventTypeData || null,
+        eventTypeId: event.data.eventTypeId,
+        eventTypeRefExists: !!eventTypeData,
+        url: `/event/join/${event.ref.id}`,
+        ...event.data
+      };
+    });
+
+    console.log('Combined events:', JSON.stringify(combinedEvents, null, 2));
+
+    return combinedEvents;
   } catch (error) {
     console.error('Error fetching events:', error);
+    if (error.requestResult) {
+      console.error('Request details:', JSON.stringify(error.requestResult, null, 2));
+    }
     return [];
   }
 };
