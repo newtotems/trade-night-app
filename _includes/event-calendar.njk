@@ -23,7 +23,7 @@
 
   {% for group in groupedEvents %}
   <!-- Item -->
-  <div class="group relative flex gap-x-5
+  <div class="event-container group relative flex gap-x-5
     {%- set eventTypeIds = [] -%}
     {%- for event in group.events -%}
       {%- if event.eventTypeId not in eventTypeIds %}
