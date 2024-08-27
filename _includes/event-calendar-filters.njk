@@ -23,22 +23,33 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     controls: {
       scope: 'local'
-    },
-    multifilter: {
-      enable: true
     }
   });
+
+  var activeFilters = [];
 
   // Set up click event for filter buttons
   var filterButtons = document.querySelectorAll('.controls .filter');
   filterButtons.forEach(function(button) {
     button.addEventListener('click', function() {
-      this.classList.toggle('active');
-      var activeFilters = Array.from(document.querySelectorAll('.controls .filter.active'))
-        .map(el => el.getAttribute('data-filter'))
-        .filter(filter => filter !== 'all');
+      var filter = this.getAttribute('data-filter');
       
-      if (activeFilters.length === 0 || this.getAttribute('data-filter') === 'all') {
+      if (filter === 'all') {
+        activeFilters = [];
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+      } else {
+        this.classList.toggle('active');
+        var index = activeFilters.indexOf(filter);
+        if (index > -1) {
+          activeFilters.splice(index, 1);
+        } else {
+          activeFilters.push(filter);
+        }
+        document.querySelector('[data-filter="all"]').classList.remove('active');
+      }
+
+      if (activeFilters.length === 0) {
         mixer.filter('all');
       } else {
         mixer.filter(activeFilters.join(','));
