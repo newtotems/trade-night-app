@@ -1,18 +1,12 @@
 ---
 pagination:
-  data: eventlist
+  data: getEvents
   size: 1
   alias: event
 permalink: "/event/join/{{ event.id }}/"
 layout: layouts/home.njk
-eleventyComputed:
-  eventTypes: "{{ eventTypes }}"
 ---
 
-<h1>{{ event.title }}</h1>
-<p>Event Type: {{ event.eventTypeName }}</p>
-<p>Date: {{ event.date | readableDate }}</p>
-<!-- Add more event details as needed -->
 
 <a href="/event/trade/{{ event.id }}" class="inline-block px-6 py-3 text-lg font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition duration-300 ease-in-out">
   Trade for this Event
@@ -20,7 +14,6 @@ eleventyComputed:
 
 <script>
   console.log('Event Data:', JSON.parse('{{ event | dump | safe | replace("'", "\\'") }}'));
-  console.log('Event Types:', JSON.parse('{{ eventTypes | dump | safe | replace("'", "\\'") }}'));
 </script>
 
 
