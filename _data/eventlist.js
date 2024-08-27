@@ -25,7 +25,7 @@ module.exports = async function() {
               event: q.Get(q.Var('ref')),
               eventType: q.Let(
                 {
-                  eventTypeRef: q.Match(q.Index('eventTypes_by_eventTypeId'), q.Select(['data', 'eventTypeId'], q.Var('event')))
+                  eventTypeRef: q.Match(q.Index('events_type'), q.Select(['data', 'eventTypeId'], q.Var('event')))
                 },
                 q.If(
                   q.IsEmpty(q.Var('eventTypeRef')),
@@ -37,6 +37,7 @@ module.exports = async function() {
             {
               id: q.Select(['ref', 'id'], q.Var('event')),
               eventTypeName: q.Select(['data', 'name'], q.Var('eventType'), ''),
+              eventTypeData: q.Select(['data'], q.Var('eventType'), {}),
               data: q.Select(['data'], q.Var('event')),
               url: q.Concat(['/event/join/', q.Select(['ref', 'id'], q.Var('event'))])
             }
@@ -48,6 +49,7 @@ module.exports = async function() {
     return result.data.map(event => ({
       id: event.id,
       eventTypeName: event.eventTypeName,
+      eventTypeData: event.eventTypeData,
       url: event.url,
       ...event.data
     }));
