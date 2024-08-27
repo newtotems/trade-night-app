@@ -40,7 +40,7 @@ module.exports = async function() {
       )
     );
 
-    return result.data.map(item => ({
+    const mappedResult = result.data.map(item => ({
       id: item.id,
       ...item.eventData,
       eventTypeName: item.eventTypeData.name,
@@ -48,6 +48,10 @@ module.exports = async function() {
       // Add any other eventType fields you want to include
       // Prefix with 'eventType' if there's a naming clash
     }));
+
+    console.log('Successfully fetched events:', JSON.stringify(mappedResult, null, 2));
+
+    return mappedResult;
   } catch (error) {
     console.error('Error fetching events with event types:', error);
     return [];
