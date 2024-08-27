@@ -16,14 +16,21 @@ layout: layouts/home.njk
 </a>
 
 <!-- Debug output -->
+<h2>Event Data:</h2>
 <pre>
 {{ event | dump(2) }}
 </pre>
+
+<h2>Available Collections:</h2>
+<ul>
+{% for collectionName, items in collections %}
+  <li>{{ collectionName }}: {{ items.length }} items</li>
+{% endfor %}
+</ul>
+
+<h2>Page Variables:</h2>
 <pre>
-{{ eventlist | dump(2) }}
-</pre>
-<pre>
-{{ collections | dump(2) }}
+{{ page | dump(2) }}
 </pre>
 
 
