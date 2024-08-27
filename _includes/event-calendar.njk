@@ -42,10 +42,10 @@
     <!-- End Icon -->
 
     <!-- Right Content -->
-    <div class="grow pb-8 group-last:pb-0">
+    <div class="grow pb-8 group-last:pb-0 ">
       <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
         {% for event in group.events %}
-          <a href="/event/join/{{ event.id }}" class="block aspect-[2/3] bg-gray-200 rounded-lg overflow-hidden relative">
+          <a href="/event/join/{{ event.id }}" class="block aspect-[2/3] bg-gray-200 rounded-lg overflow-hidden relative eventType{{ event.eventTypeId }}">
             <div class="p-4">
               <h3 class="font-bold">{{ event.title }}</h3>
               <p>{{ event.location }}</p>
