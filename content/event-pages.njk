@@ -5,8 +5,9 @@ pagination:
   alias: event
 permalink: "/event/join/{{ event.id }}/"
 layout: layouts/home.njk
+eleventyComputed:
+  eventTypes: "{{ eventtypes | default([]) }}"
 ---
-
 
 {% set eventTypes = eventtypes | default([]) %}
 {% set eventType = eventTypes | selectattr("id", "equalto", event.eventTypeId) | first %}
