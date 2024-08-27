@@ -6,6 +6,17 @@ pagination:
 permalink: "/event/join/{{ event.id }}/"
 layout: layouts/home.njk
 ---
+
+
+{% set eventTypes = eventtypes | default([]) %}
+{% set eventType = eventTypes | selectattr("id", "equalto", event.eventTypeId) | first %}
+{% if eventType %}
+  <div class="inline-block px-3 py-1 text-sm font-semibold text-white bg-blue-500 rounded-full mb-4">
+    {{ eventType.name }}
+  </div>
+{% endif %}
+
+
 <h1>{{ event.title }}</h1>
 <p>Event Type: {{ event.eventTypeName }}</p>
 <p>Date: {{ event.date | readableDate }}</p>
