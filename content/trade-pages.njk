@@ -12,8 +12,8 @@ layout: layouts/base-trade.njk
     <div class="absolute top-0 left-0 right-0 text-center py-4 z-20">
       <h1 class="text-3xl font-bold"><a href="/" class="text-white hover:text-gray-200">Trade Night</a></h1>
     </div>
-    <div class="flex flex-col md:flex-row h-full">
-      <div class="w-full h-1/2 md:w-1/2 md:h-screen flex items-center justify-center relative">
+    <div class="flex flex-col h-full">
+      <div class="w-full h-1/2 flex items-center justify-center relative">
         <video id="cameraFeed" class="absolute inset-0 w-full h-full object-cover z-0" autoplay playsinline></video>
         <button id="switchCamera" class="absolute top-4 right-4 p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition duration-300 z-10">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-switch-camera">
@@ -24,7 +24,7 @@ layout: layouts/base-trade.njk
             <path d="m6 2 3 3-3 3"/>
           </svg>
         </button>
-        <div class="relative">
+        <div class="relative z-10">
           <div class="w-64 h-96 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center">
           </div>
           <button class="absolute left-1/2 transform -translate-x-1/2 top-full mt-[5px] p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition duration-300">
@@ -39,11 +39,20 @@ layout: layouts/base-trade.njk
           <p class="text-center">Trade Details</p>
         </div>
       </div>
-      <div class="w-full h-1/2 md:w-1/2 md:h-screen flex items-center justify-center">
-        <div class="w-64 h-96 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center bg-transparent">
-          <p class="text-white text-center px-4 py-2">Place cards here to add to the trade</p>
+      <div class="w-full h-1/2 flex items-center justify-center relative">
+        <video id="remoteVideo" class="absolute inset-0 w-full h-full object-cover z-0" autoplay playsinline></video>
+        <div class="relative z-10">
+          <div class="w-64 h-96 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center">
+          </div>
+          <button class="absolute left-1/2 transform -translate-x-1/2 top-full mt-[5px] p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-plus">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M8 12h8"/>
+              <path d="M12 8v8"/>
+            </svg>
+          </button>
         </div>
-         <div class="absolute bottom-4 right-4 md:left-1/2 md:w-[calc(50%-2rem)] bg-gray-200 rounded-lg p-4">
+        <div class="absolute bottom-4 right-4 md:left-1/2 md:w-[calc(50%-2rem)] bg-gray-200 rounded-lg p-4">
           <p class="text-center">Trade Details</p>
         </div>
       </div>
@@ -63,8 +72,6 @@ layout: layouts/base-trade.njk
 
       const constraints = {
         video: {
-          width: { ideal: 1280 },
-          height: { ideal: 720 },
           facingMode: { ideal: facingMode }
         }
       };
@@ -75,19 +82,15 @@ layout: layouts/base-trade.njk
       await videoElement.play();
       currentStream = stream;
       currentFacingMode = facingMode;
-      adjustVideoSize();
+      adjustVideoSize('cameraFeed');
     } catch (error) {
       console.error('Error accessing camera:', error);
-      alert('Failed to switch camera. Your device might not support changing cameras or the requested camera is not available.');
-      // Attempt to fall back to the previous camera
-      if (facingMode !== currentFacingMode) {
-        startCamera(currentFacingMode);
-      }
+      alert('Failed to start or switch camera. Your device might not support changing cameras or the requested camera is not available.');
     }
   }
 
-  function adjustVideoSize() {
-    const video = document.getElementById('cameraFeed');
+  function adjustVideoSize(videoId) {
+    const video = document.getElementById(videoId);
     const container = video.parentElement;
     const aspectRatio = video.videoWidth / video.videoHeight;
     
@@ -107,9 +110,16 @@ layout: layouts/base-trade.njk
 
   document.addEventListener('DOMContentLoaded', function() {
     startCamera();
-    window.addEventListener('resize', adjustVideoSize);
+    window.addEventListener('resize', () => adjustVideoSize('cameraFeed'));
     document.getElementById('switchCamera').addEventListener('click', switchCamera);
   });
 
-  document.getElementById('cameraFeed').addEventListener('loadedmetadata', adjustVideoSize);
+  document.getElementById('cameraFeed').addEventListener('loadedmetadata', () => adjustVideoSize('cameraFeed'));
+
+  // You can add your WebRTC setup for the remote video here
+  // For example:
+  // function setupWebRTC() {
+  //   // WebRTC setup code
+  // }
+  // setupWebRTC();
 </script>
