@@ -53,23 +53,36 @@ layout: layouts/base-trade.njk
 
 <script>
   let currentFacingMode = 'environment';
+  let currentStream = null;
 
   async function startCamera(facingMode = 'environment') {
     try {
+      if (currentStream) {
+        currentStream.getTracks().forEach(track => track.stop());
+      }
+
       const constraints = {
         video: {
           width: { ideal: 1280 },
           height: { ideal: 720 },
-          facingMode: facingMode
+          facingMode: { ideal: facingMode }
         }
       };
+      
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
       const videoElement = document.getElementById('cameraFeed');
       videoElement.srcObject = stream;
-      videoElement.play();
+      await videoElement.play();
+      currentStream = stream;
       currentFacingMode = facingMode;
+      adjustVideoSize();
     } catch (error) {
       console.error('Error accessing camera:', error);
+      alert('Failed to switch camera. Your device might not support changing cameras or the requested camera is not available.');
+      // Attempt to fall back to the previous camera
+      if (facingMode !== currentFacingMode) {
+        startCamera(currentFacingMode);
+      }
     }
   }
 
