@@ -15,6 +15,15 @@ layout: layouts/base-trade.njk
     <div class="flex flex-col md:flex-row h-full">
       <div class="w-full h-1/2 md:w-1/2 md:h-screen flex items-center justify-center relative">
         <video id="cameraFeed" class="absolute inset-0 w-full h-full object-cover z-0" autoplay playsinline></video>
+        <button id="switchCamera" class="absolute top-4 right-4 p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition duration-300 z-10">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-switch-camera">
+            <path d="M11 19H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/>
+            <path d="M13 5h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-5"/>
+            <circle cx="12" cy="12" r="3"/>
+            <path d="m18 22-3-3 3-3"/>
+            <path d="m6 2 3 3-3 3"/>
+          </svg>
+        </button>
         <div class="relative">
           <div class="w-64 h-96 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center">
           </div>
@@ -43,17 +52,51 @@ layout: layouts/base-trade.njk
 </div>
 
 <script>
-  async function startCamera() {
+  let currentFacingMode = 'environment';
+
+  async function startCamera(facingMode = 'environment') {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      const constraints = {
+        video: {
+          width: { ideal: 1280 },
+          height: { ideal: 720 },
+          facingMode: facingMode
+        }
+      };
+      const stream = await navigator.mediaDevices.getUserMedia(constraints);
       const videoElement = document.getElementById('cameraFeed');
       videoElement.srcObject = stream;
+      videoElement.play();
+      currentFacingMode = facingMode;
     } catch (error) {
       console.error('Error accessing camera:', error);
     }
   }
 
+  function adjustVideoSize() {
+    const video = document.getElementById('cameraFeed');
+    const container = video.parentElement;
+    const aspectRatio = video.videoWidth / video.videoHeight;
+    
+    if (container.offsetWidth / container.offsetHeight > aspectRatio) {
+      video.style.width = '100%';
+      video.style.height = 'auto';
+    } else {
+      video.style.width = 'auto';
+      video.style.height = '100%';
+    }
+  }
+
+  function switchCamera() {
+    const newFacingMode = currentFacingMode === 'environment' ? 'user' : 'environment';
+    startCamera(newFacingMode);
+  }
+
   document.addEventListener('DOMContentLoaded', function() {
     startCamera();
+    window.addEventListener('resize', adjustVideoSize);
+    document.getElementById('switchCamera').addEventListener('click', switchCamera);
   });
+
+  document.getElementById('cameraFeed').addEventListener('loadedmetadata', adjustVideoSize);
 </script>
