@@ -15,8 +15,13 @@ layout: layouts/base-trade.njk
   </button>
 
   <div class="flex flex-col md:flex-row flex-grow">
-    <div id="tradepartner" class="w-full h-1/2 md:w-1/2 md:h-full bg-gray-200 flex flex-col relative order-1 md:order-1">
-      <div class="flex-grow"></div>
+    <div id="tradepartner" class="w-full h-1/2 md:w-1/2 md:h-full bg-gray-800 flex flex-col relative order-1 md:order-1">
+      <div class="flex-grow flex items-center justify-center">
+        <div class="text-center">
+          <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-white mb-4"></div>
+          <p class="text-white text-lg">Waiting on trade partner...</p>
+        </div>
+      </div>
       
       <div class="h-[100px] relative">
         <div class="absolute bottom-0 left-0 right-0 flex justify-around items-end w-full overflow-hidden">
