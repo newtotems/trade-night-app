@@ -59,7 +59,7 @@ layout: layouts/base-trade.njk
 </div>
 
 <script>
-function goFullScreen() {
+function requestFullScreen() {
     if (document.documentElement.requestFullscreen) {
         document.documentElement.requestFullscreen();
     } else if (document.documentElement.mozRequestFullScreen) { // Firefox
@@ -71,15 +71,8 @@ function goFullScreen() {
     }
 }
 
-function scrollToTop() {
-    window.scrollTo(0, 0);
-}
-
-// Call these functions after the page has loaded
-window.addEventListener('load', function() {
-    scrollToTop();
-    goFullScreen();
-});
+// Call this function after the page has loaded
+window.addEventListener('load', requestFullScreen);
 </script>
 
 
