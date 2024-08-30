@@ -7,7 +7,14 @@ permalink: "/event/trade/{{ eventtrade.id }}/"
 layout: layouts/base-trade.njk
 ---
 
-<div class="w-screen h-screen flex flex-col">
+<div class="w-screen h-screen flex flex-col relative">
+  <!-- Updated button with window icon -->
+  <button id="fullscreenButton" class="absolute top-4 right-4 bg-green-500 hover:bg-green-600 text-white p-2 rounded-full shadow-lg z-10">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+    </svg>
+  </button>
+
   <div class="flex-grow flex flex-col md:flex-row">
     <div id="trader" class="w-full h-1/2 md:w-1/2 md:h-full bg-gray-100 flex flex-col items-center justify-between py-4 relative">
       <div class="w-48 h-64 border-2 border-white border-dashed flex items-center justify-center">
@@ -71,8 +78,10 @@ function requestFullScreen() {
     }
 }
 
-// Call this function after the page has loaded
-window.addEventListener('load', requestFullScreen);
+document.addEventListener('DOMContentLoaded', function() {
+    const fullscreenButton = document.getElementById('fullscreenButton');
+    fullscreenButton.addEventListener('click', requestFullScreen);
+});
 </script>
 
 
