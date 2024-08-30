@@ -59,12 +59,27 @@ layout: layouts/base-trade.njk
 </div>
 
 <script>
+function goFullScreen() {
+    if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+    } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+        document.documentElement.mozRequestFullScreen();
+    } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari and Opera
+        document.documentElement.webkitRequestFullscreen();
+    } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+        document.documentElement.msRequestFullscreen();
+    }
+}
+
 function scrollToTop() {
     window.scrollTo(0, 0);
 }
 
-// Call this function after the page has loaded
-window.addEventListener('load', scrollToTop);
+// Call these functions after the page has loaded
+window.addEventListener('load', function() {
+    scrollToTop();
+    goFullScreen();
+});
 </script>
 
 
