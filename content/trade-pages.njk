@@ -32,6 +32,8 @@ layout: layouts/base-trade.njk
           {% endfor %}
         </div>
       </div>
+
+      <video id="cameraFeed" class="w-full h-full object-cover absolute top-0 left-0 z-0" autoplay playsinline></video>
     </div>
 
     <div id="tradepartner" class="w-full h-1/2 md:w-1/2 md:h-full bg-gray-200 flex flex-col relative">
@@ -104,6 +106,22 @@ function toggleFullScreen() {
 document.addEventListener('DOMContentLoaded', function() {
   const fullscreenButton = document.getElementById('fullscreenButton');
   fullscreenButton.addEventListener('click', toggleFullScreen);
+
+  // Camera feed setup
+  const cameraFeed = document.getElementById('cameraFeed');
+
+  async function setupCamera() {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: 'environment' }
+      });
+      cameraFeed.srcObject = stream;
+    } catch (error) {
+      console.error('Error accessing camera:', error);
+    }
+  }
+
+  setupCamera();
 });
 </script>
 
