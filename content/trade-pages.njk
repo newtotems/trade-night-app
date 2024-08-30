@@ -19,7 +19,12 @@ layout: layouts/base-trade.njk
       <video id="cameraFeed" class="absolute inset-0 w-full h-full object-cover z-0" autoplay playsinline></video>
       
       <div class="flex-grow flex items-center justify-center relative z-10">
-        <div class="w-48 h-64 border-2 border-white border-dashed flex items-center justify-center">
+        <div class="w-48 h-64 border-2 border-white border-dashed flex items-center justify-center relative">
+          <button id="captureButton" class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center shadow-lg hover:bg-blue-600 transition-colors duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+          </button>
         </div>
       </div>
       
@@ -122,6 +127,31 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   setupCamera();
+
+  const captureButton = document.getElementById('captureButton');
+  const dashedBox = document.querySelector('.border-dashed');
+
+  captureButton.addEventListener('click', function() {
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    const boxRect = dashedBox.getBoundingClientRect();
+    const videoRect = cameraFeed.getBoundingClientRect();
+
+    canvas.width = boxRect.width;
+    canvas.height = boxRect.height;
+
+    const sx = (boxRect.left - videoRect.left) * (cameraFeed.videoWidth / videoRect.width);
+    const sy = (boxRect.top - videoRect.top) * (cameraFeed.videoHeight / videoRect.height);
+    const sWidth = boxRect.width * (cameraFeed.videoWidth / videoRect.width);
+    const sHeight = boxRect.height * (cameraFeed.videoHeight / videoRect.height);
+
+    context.drawImage(cameraFeed, sx, sy, sWidth, sHeight, 0, 0, canvas.width, canvas.height);
+
+    canvas.toBlob(function(blob) {
+      const url = URL.createObjectURL(blob);
+      window.open(url, '_blank');
+    }, 'image/png');
+  });
 });
 </script>
 
