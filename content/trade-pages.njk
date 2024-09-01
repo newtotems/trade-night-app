@@ -98,6 +98,16 @@ layout: layouts/base-trade.njk
   </div>
 </div>
 
+<!-- Add this template somewhere in your main HTML -->
+<template id="modalTemplate">
+  <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 modal-container">
+    <div class="bg-white p-4 rounded-lg relative max-w-lg w-full modal-content">
+      <button class="absolute top-2 right-2 text-2xl font-bold modal-close-button">&times;</button>
+      <img class="w-full h-auto modal-image" src="" alt="Captured Image">
+    </div>
+  </div>
+</template>
+
 <script>
 function toggleFullScreen() {
   if (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
@@ -192,34 +202,26 @@ document.addEventListener('DOMContentLoaded', function() {
       newCanvas.toBlob(function(blob) {
         const url = URL.createObjectURL(blob);
         
-        // Create modal
-        const modal = document.createElement('div');
-        modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+        // Get the template
+        const template = document.getElementById('modalTemplate');
+        const modal = template.content.cloneNode(true);
         
-        // Create modal content
-        const modalContent = document.createElement('div');
-        modalContent.className = 'bg-white p-4 rounded-lg relative max-w-lg w-full';
+        // Set the image source
+        const imgElement = modal.querySelector('.modal-image');
+        imgElement.src = url;
         
-        // Create close button
-        const closeButton = document.createElement('button');
-        closeButton.innerHTML = '&times;';
-        closeButton.className = 'absolute top-2 right-2 text-2xl font-bold';
+        // Set the close button functionality
+        const closeButton = modal.querySelector('.modal-close-button');
         closeButton.onclick = function() {
-          document.body.removeChild(modal);
+          document.body.removeChild(modalContainer);
         };
         
-        // Create image element
-        const imgElement = document.createElement('img');
-        imgElement.src = url;
-        imgElement.className = 'w-full h-auto';
-        
-        // Assemble modal
-        modalContent.appendChild(closeButton);
-        modalContent.appendChild(imgElement);
-        modal.appendChild(modalContent);
+        // Create a container for the modal
+        const modalContainer = document.createElement('div');
+        modalContainer.appendChild(modal);
         
         // Add modal to body
-        document.body.appendChild(modal);
+        document.body.appendChild(modalContainer);
       }, 'image/png');
     };
     img.src = canvas.toDataURL('image/png');
