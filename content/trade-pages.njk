@@ -19,7 +19,7 @@ layout: layouts/base-trade.njk
   </button>
 
   <div class="flex flex-col md:flex-row flex-grow">
-    <div id="tradepartner" class="w-full h-1/2 md:w-1/2 md:h-full bg-gray-800 flex flex-col relative order-1 md:order-1">
+    <div id="tradepartner" class="w-full h-1/2 md:w-1/2 md:h-full bg-gray-800 flex flex-col relative order-1 md:order-1 overflow-hidden">
       <svg class="absolute top-4 left-4 w-8 h-8 text-gray-300 z-10" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="0.62854" y="0.359985" width="15" height="15" rx="7.5" fill="white"></rect>
         <path d="M8.12421 7.20374C9.21151 7.20374 10.093 6.32229 10.093 5.23499C10.093 4.14767 9.21151 3.26624 8.12421 3.26624C7.0369 3.26624 6.15546 4.14767 6.15546 5.23499C6.15546 6.32229 7.0369 7.20374 8.12421 7.20374Z" fill="currentColor"></path>
@@ -32,11 +32,11 @@ layout: layouts/base-trade.njk
         </div>
       </div>
       
-      <div class="h-[100px] relative z-10 -mt-12">
+      <div class="h-[100px] relative z-10 -mt-12 transform translate-y-1/2 ">
         <div class="absolute bottom-0 left-0 right-0 flex justify-around items-end w-full overflow-hidden">
           {% for i in range(0, 6) %}
             <div class="w-1/6 p-2">
-              <div class="rounded-lg aspect-[2/3] transform translate-y-1/2 max-h-[200px] overflow-hidden">
+              <div class="rounded-lg aspect-[2/3] max-h-[200px] overflow-hidden">
                 <img src="/img/pokemon.jpg" alt="{{ eventtrade.name }}" class="w-full h-full object-cover">
               </div>
             </div>
@@ -45,7 +45,7 @@ layout: layouts/base-trade.njk
       </div>
     </div>
 
-    <div id="trader" class="w-full h-1/2 md:w-1/2 md:h-full bg-gray-100 flex flex-col relative order-2 md:order-2">
+    <div id="trader" class="w-full h-1/2 md:w-1/2 md:h-full bg-gray-100 flex flex-col relative order-2 md:order-2 overflow-hidden">
      
       <video id="cameraFeed" class="absolute inset-0 w-full h-full object-cover z-0" autoplay playsinline></video>
       
@@ -59,11 +59,11 @@ layout: layouts/base-trade.njk
         </div>
       </div>
       
-      <div class="h-[100px] relative z-10 -mt-12">
+      <div class="h-[100px] relative z-10 -mt-12 transform translate-y-1/2 ">
         <div class="absolute bottom-0 left-0 right-0 flex justify-around items-end w-full overflow-hidden">
           {% for i in range(0, 6) %}
             <div class="w-1/6 p-2">
-              <div class="rounded-lg aspect-[2/3] transform translate-y-1/2 max-h-[200px] overflow-hidden">
+              <div class="rounded-lg aspect-[2/3] max-h-[200px] overflow-hidden">
                 <img src="/img/pokemon.jpg" alt="{{ eventtrade.name }}" class="w-full h-full object-cover">
               </div>
             </div>
