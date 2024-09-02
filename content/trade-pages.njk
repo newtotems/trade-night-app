@@ -33,7 +33,7 @@ layout: layouts/base-trade.njk
       </div>
       
       <div class="h-[100px] relative z-10 -mt-12 transform translate-y-1/2 ">
-        <div class="absolute bottom-0 left-0 right-0 flex justify-around items-end w-full overflow-hidden" id="tradeImagesContainer">
+        <div class="absolute bottom-0 left-0 right-0 flex justify-around items-end w-full overflow-hidden" id="tradeImagesContainer0">
           <!-- Initially empty -->
         </div>
       </div>
@@ -53,15 +53,9 @@ layout: layouts/base-trade.njk
         </div>
       </div>
       
-      <div class="h-[100px] relative z-10 -mt-12 transform translate-y-1/2 ">
-        <div class="absolute bottom-0 left-0 right-0 flex justify-around items-end w-full overflow-hidden">
-          {% for i in range(0, 6) %}
-            <div class="w-1/6 p-2 pt-0">
-              <div class="rounded-lg aspect-[2/3] max-h-[200px] overflow-hidden">
-                <img src="/img/pokemon.jpg" alt="{{ eventtrade.name }}" class="w-full h-full object-cover">
-              </div>
-            </div>
-          {% endfor %}
+       <div class="h-[100px] relative z-10 -mt-12 transform translate-y-1/2 ">
+        <div class="absolute bottom-0 left-0 right-0 flex justify-around items-end w-full overflow-hidden" id="tradeImagesContainer">
+          <!-- Initially empty -->
         </div>
       </div>
     </div>
