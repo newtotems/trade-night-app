@@ -213,12 +213,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const imgElement = modal.querySelector('.modal-image');
         imgElement.src = url;
         
-        // Set the close button functionality
-        const closeButton = modal.querySelector('.modal-close-button');
-        closeButton.onclick = function() {
-          document.body.removeChild(modalContainer);
-        };
-        
         // Create a container for the modal
         const modalContainer = document.createElement('div');
         modalContainer.appendChild(modal);
@@ -226,8 +220,18 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add modal to body
         document.body.appendChild(modalContainer);
 
+        // Function to close and clear the modal
+        function closeAndClearModal() {
+          document.body.removeChild(modalContainer);
+          modalContainer.innerHTML = '';
+        }
+
+        // Set the close button functionality
+        const closeButton = modalContainer.querySelector('.modal-close-button');
+        closeButton.onclick = closeAndClearModal;
+
         // Add to trade functionality
-        const addToTradeButton = modal.querySelector('#addToTradeButton');
+        const addToTradeButton = modalContainer.querySelector('#addToTradeButton');
         const tradeImagesContainer = document.getElementById('tradeImagesContainer');
         addToTradeButton.addEventListener('click', function() {
           if (tradeImagesContainer.children.length < 6) {
@@ -243,6 +247,7 @@ document.addEventListener('DOMContentLoaded', function() {
               addToTradeButton.disabled = true;
             }
           }
+          closeAndClearModal(); // Close and clear the modal after adding to trade
         });
       }, 'image/png');
     };
