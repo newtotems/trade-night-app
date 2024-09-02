@@ -33,14 +33,8 @@ layout: layouts/base-trade.njk
       </div>
       
       <div class="h-[100px] relative z-10 -mt-12 transform translate-y-1/2 ">
-        <div class="absolute bottom-0 left-0 right-0 flex justify-around items-end w-full overflow-hidden">
-          {% for i in range(0, 6) %}
-            <div class="w-1/6 p-2 pt-0">
-              <div class="rounded-lg aspect-[2/3] max-h-[200px] overflow-hidden">
-                <img src="/img/pokemon.jpg" alt="{{ eventtrade.name }}" class="w-full h-full object-cover">
-              </div>
-            </div>
-          {% endfor %}
+        <div class="absolute bottom-0 left-0 right-0 flex justify-around items-end w-full overflow-hidden" id="tradeImagesContainer">
+          <!-- Initially empty -->
         </div>
       </div>
     </div>
@@ -112,7 +106,7 @@ layout: layouts/base-trade.njk
           <p class="text-lg font-bold">List</p>
         </div>
       </div>
-      <button class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg">Add to Trade</button>
+      <button id="addToTradeButton" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg">Add to Trade</button>
     </div>
   </div>
 </template>
@@ -231,6 +225,25 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Add modal to body
         document.body.appendChild(modalContainer);
+
+        // Add to trade functionality
+        const addToTradeButton = modal.querySelector('#addToTradeButton');
+        const tradeImagesContainer = document.getElementById('tradeImagesContainer');
+        addToTradeButton.addEventListener('click', function() {
+          if (tradeImagesContainer.children.length < 6) {
+            const tradeDiv = document.createElement('div');
+            tradeDiv.className = 'w-1/6 p-2 pt-0';
+            tradeDiv.innerHTML = `
+              <div class="rounded-lg aspect-[2/3] max-h-[200px] overflow-hidden">
+                <img src="${url}" alt="Captured Image" class="w-full h-full object-cover">
+              </div>
+            `;
+            tradeImagesContainer.appendChild(tradeDiv);
+            if (tradeImagesContainer.children.length >= 6) {
+              addToTradeButton.disabled = true;
+            }
+          }
+        });
       }, 'image/png');
     };
     img.src = canvas.toDataURL('image/png');
