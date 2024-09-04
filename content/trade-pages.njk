@@ -239,8 +239,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const tradeDiv = document.createElement('div');
             tradeDiv.className = 'w-1/6 p-2 pt-0';
             tradeDiv.innerHTML = `
-              <div class="rounded-lg aspect-[2/3] max-h-[200px] overflow-hidden">
+              <div class="relative rounded-lg aspect-[2/3] max-h-[200px] overflow-hidden">
                 <img src="${url}" alt="Captured Image" class="w-full h-full object-cover">
+                <button class="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center" onclick="removeImage(this)">×</button>
               </div>
             `;
             tradeImagesContainer.appendChild(tradeDiv);
@@ -255,6 +256,16 @@ document.addEventListener('DOMContentLoaded', function() {
     img.src = canvas.toDataURL('image/png');
   });
 });
+
+// Add this function to remove images
+function removeImage(button) {
+  const tradeDiv = button.parentElement.parentElement; // Get the parent div of the image
+  tradeDiv.remove(); // Remove the image div
+  const tradeImagesContainer = document.getElementById('tradeImagesContainer');
+  if (tradeImagesContainer.children.length < 6) {
+    document.getElementById('addToTradeButton').disabled = false; // Enable the button if less than 6 images
+  }
+}
 </script>
 
 
