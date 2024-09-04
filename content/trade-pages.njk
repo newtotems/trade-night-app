@@ -234,13 +234,19 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add to trade functionality
         const addToTradeButton = modalContainer.querySelector('#addToTradeButton');
         const tradeImagesContainer = document.getElementById('tradeImagesContainer');
-        addToTradeButton.addEventListener('click', function() {
+        addToTradeButton.addEventListener('click', async function() {
           if (tradeImagesContainer.children.length < 6) {
             const tradeDiv = document.createElement('div');
             tradeDiv.className = 'w-1/6 p-2 pt-0';
+
+            // Fetch the image from the Pokémon TCG API
+            const response = await fetch('https://api.pokemontcg.io/v2/cards?q=name:pikachu');
+            const data = await response.json();
+            const pokemonImageUrl = data.cards[0].images.small; // Get the small image URL
+
             tradeDiv.innerHTML = `
               <div class="relative rounded-lg aspect-[2/3] max-h-[200px] overflow-hidden">
-                <img src="${url}" alt="Captured Image" class="w-full h-full object-cover">
+                <img src="${pokemonImageUrl}" alt="Captured Image" class="w-full h-full object-cover">
                 <button class="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center" onclick="removeImage(this)">×</button>
               </div>
             `;
