@@ -13,9 +13,6 @@ layout: layouts/home.njk
   https://www.linkedin.com/in/devalade
 -->
 <div class="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-6 sm:py-12" style="width: 100%; height: 100%; overflow: hidden; pointer-events: none;">
-  <img src="/img/beams.jpg" alt="" class="absolute left-1/2 top-1/2 max-w-none -translate-x-1/2 -translate-y-1/2" width="1308" />
-  <div class="absolute inset-0 bg-[url(/img/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
-
   <!-- HTML -->
   <div class="absolute inset-0 z-0"> <!-- Added z-0 to position behind other content -->
     <div class="group flex space-x-16 overflow-hidden" style="transform: rotate(45deg);">
@@ -29,14 +26,17 @@ layout: layouts/home.njk
   </div>
   <div class="relative z-10"> <!-- Added z-10 to ensure this content is above the animated divs -->
     <div class="md:p-8 h-screen flex flex-col relative max-w-[1024px] mx-auto">
-      <div class="flex-grow overflow-y-auto mb-16">
+
+      <div class="fixed bottom-0 right-0 left-0 bg-gradient-to-t from-black to-transparent text-white p-4"> <!-- Updated for gradient background -->
+        
+        <div class="flex-grow overflow-y-auto mb-16">
         <h1 class="text-2xl font-bold mb-4">{{ event.title }}</h1>
         <p class="mb-2">{{ event.eventTypeData.name }}</p>
         <p class="mb-4">{{ event.eventSubTypeData.name }}</p>
         <!-- Add more event details as needed -->
       </div>
-
-      <div class="fixed bottom-0 right-0 left-0 bg-gradient-to-t from-black to-transparent text-white p-4"> <!-- Updated for gradient background -->
+        
+        
         <a href="/event/trade/{{ event.id }}" 
            class="inline-block px-6 py-3 text-lg font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition duration-300 ease-in-out">
           Trade for this Event
