@@ -27,7 +27,8 @@ layout: layouts/home.njk
   <div class="relative z-10"> <!-- Added z-10 to ensure this content is above the animated divs -->
     <div class="md:p-8 h-screen flex flex-col relative max-w-[1024px] mx-auto">
 
-      <div class="fixed bottom-0 right-0 left-0 bg-gradient-to-t from-black to-transparent text-white p-4"> <!-- Updated for gradient background -->
+      <div class="fixed bottom-0 right-0 left-0 bg-gradient-to-t from-black to-transparent text-white p-4" style="height: 50%; width: 100%;"> <!-- Updated for gradient background and height -->
+        <div class="max-w-[1024px] mx-auto"> <!-- Added to constrain width to container -->
         
         <div class="flex-grow overflow-y-auto mb-16">
         <h1 class="text-2xl font-bold mb-4">{{ event.title }}</h1>
