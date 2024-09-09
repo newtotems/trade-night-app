@@ -20,8 +20,8 @@ layout: layouts/base-trade.njk
 
   
 <!-- Gauge Component -->
-<div class="relative size-40">
-  <svg class="size-full rotate-180" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+<div class="relative size-40 z-20"> <!-- Added z-20 for stacking context -->
+  <svg class="size-full rotate-180 absolute bottom-0 left-1/2 transform -translate-x-1/2 md:w-1/2 w-3/4" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg"> <!-- Adjusted positioning for desktop -->
     <!-- Background Circle (Gauge) -->
     <circle cx="18" cy="18" r="16" fill="none" class="stroke-current text-gray-200 dark:text-neutral-700" stroke-width="1" stroke-dasharray="50 100" stroke-linecap="round"></circle>
 
@@ -30,7 +30,7 @@ layout: layouts/base-trade.njk
   </svg>
 
   <!-- Value Text -->
-  <div class="absolute top-9 start-1/2 transform -translate-x-1/2 text-center">
+  <div class="absolute bottom-12 left-1/2 transform -translate-x-1/2 text-center"> <!-- Adjusted positioning for desktop -->
     <span class="text-3xl font-bold text-blue-600 dark:text-blue-500">75</span>
     <span class="text-sm text-blue-600 dark:text-blue-500 block">Score</span>
   </div>
