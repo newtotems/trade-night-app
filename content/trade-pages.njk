@@ -42,19 +42,20 @@ layout: layouts/base-trade.njk
             <div class="flex flex-col justify-center rounded-full overflow-hidden bg-blue-600 text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-blue-500" style="width: 50%"></div>
         </div>
        
-        <div id="trade_detail" class="flex w-full text-center"> <!-- Updated to ensure full width -->
-            <div class="flex-1"> <!-- Updated to take 50% width -->
+        <div id="trade_detail" class="flex w-full text-center items-center"> <!-- Updated to ensure full width and center alignment -->
+            <div class="flex-1 text-center"> <!-- Updated to take 50% width and center text -->
                 <p>Trading</p> 
                 <p>4 cards</p>
                 <p>£123.45 comp value</p>
             </div>
-            <div class="flex-1"> <!-- Updated to take 50% width -->
+            <div class="flex-1 text-center"> <!-- Updated to take 50% width and center text -->
                 <p>Receiving</p> 
                 <p>4 cards</p>
                 <p>£123.45 comp value</p>
             </div>
         </div>
-         <div id="trade_button" class="flex w-full justify-center"> <!-- Updated to ensure full width -->
+        
+        <div id="trade_button" class="flex w-full justify-center items-center mt-4 md:mt-0"> <!-- Updated to ensure full width and center alignment -->
             <button class="md:button text-white bg-blue-500 hover:bg-blue-600 py-2 px-4 rounded-lg">Trade</button>
         </div>
     </footer>
