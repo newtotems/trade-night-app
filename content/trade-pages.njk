@@ -10,17 +10,15 @@ layout: layouts/base-trade.njk
 
 <div class="flex flex-col h-screen">
     <header class="flex-none text-center bg-gray-300">Trade Night</header>
-    <main class="flex-1 bg-black text-white flex flex-col md:flex-row">
-        <div class="flex-1 md:h-full">Left Content</div>
-        <div class="flex-1 md:h-full">Right Content</div>
+    <main class="flex-1 bg-black text-white flex flex-col md:flex-row items-center justify-center"> <!-- Updated to center contents -->
+        <div class="flex-1 md:h-full h-full">Left Content</div> <!-- Updated to take full height -->
+        <div class="flex-1 md:h-full h-full">Right Content</div> <!-- Updated to take full height -->
     </main>
     <footer class="flex-none bg-gray-300 flex flex-col w-full"> <!-- Updated to stack items vertically -->
         <div id="trade_indicator" class="flex w-full h-1.5 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
             <div class="flex flex-col justify-center rounded-full overflow-hidden bg-blue-600 text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-blue-500" style="width: 25%"></div>
         </div>
-        <div id="trade_button" class="flex w-full justify-center"> <!-- Updated to ensure full width -->
-            <button class="md:button text-white bg-blue-500 hover:bg-blue-600 py-2 px-4 rounded-lg">Trade</button>
-        </div>
+       
         <div id="trade_detail" class="flex w-full text-center"> <!-- Updated to ensure full width -->
             <div class="flex-1"> <!-- Updated to take 50% width -->
                 <p>Trading</p> 
@@ -32,6 +30,9 @@ layout: layouts/base-trade.njk
                 <p>4 cards</p>
                 <p>£123.45 comp value</p>
             </div>
+        </div>
+         <div id="trade_button" class="flex w-full justify-center"> <!-- Updated to ensure full width -->
+            <button class="md:button text-white bg-blue-500 hover:bg-blue-600 py-2 px-4 rounded-lg">Trade</button>
         </div>
     </footer>
 </div>
