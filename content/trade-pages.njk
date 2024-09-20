@@ -10,9 +10,9 @@ layout: layouts/base-trade.njk
 
 <div class="flex flex-col h-screen">
     <header class="fixed top-0 left-0 right-0 text-center text-white">Trade Night</header> <!-- Updated to overlay with no background -->
-    <main class="flex-1 bg-black text-white flex flex-col md:flex-row items-center justify-center"> <!-- Updated to center contents -->
-        <div class="flex-1 md:h-full h-full">Left Content</div> <!-- Updated to take full height -->
-        <div class="flex-1 md:h-full h-full">Right Content</div> <!-- Updated to take full height -->
+    <main class="flex-1 bg-black text-white flex items-center justify-center"> <!-- Updated to center contents -->
+        <div class="flex-1 w-full h-full flex items-center justify-center">Left Content</div> <!-- Updated to full width and center -->
+        <div class="flex-1 w-full h-full flex items-center justify-center">Right Content</div> <!-- Updated to full width and center -->
     </main>
     <footer class="flex-none bg-gray-300 flex flex-col w-full"> <!-- Updated to stack items vertically -->
         <div id="trade_indicator" class="flex w-full h-1.5 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
