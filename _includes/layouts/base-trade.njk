@@ -7,7 +7,17 @@
 		<meta name="description" content="{{ description or metadata.description }}">
 		<link rel="stylesheet" href="/css/index.css">
 	</head>
-	<body>
+	<body class="min-h-screen">
 	{{ content | safe }}
 	</body>
+	<script>
+    // Dynamically set the height of the element to prevent scrolling due to address bar.
+    function setFullHeight() {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    
+    window.addEventListener('resize', setFullHeight);
+    window.addEventListener('load', setFullHeight);
+  </script>
 </html>
