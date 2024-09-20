@@ -8,14 +8,14 @@ layout: layouts/base-trade.njk
 ---
 
 <div class="h-screen flex flex-col">
-  <header class="h-12 w-full flex items-center justify-center bg-gray-200">
+  <header class="h-[5vh] w-full flex items-center justify-center bg-gray-200"> <!-- Changed height to 5% of screen height -->
     <h1 class="text-lg">Trade Night</h1>
   </header>
-  <div class="flex flex-1 flex-col md:flex-row">
+  <div class="flex flex-1 flex-col md:flex-row" style="height: 65vh;"> <!-- Changed height to 65% of screen height -->
     <div class="flex-1 bg-black md:m-5">3</div> <!-- Margin only on medium screens and up -->
     <div class="flex-1 bg-black md:m-5">3</div> <!-- Margin only on medium screens and up -->
   </div>
-  <footer class="h-38 w-full bg-gray-200 flex items-center justify-center fixed bottom-0" style="height: 150px;">
+  <footer class="h-[30vh] w-full bg-gray-200 flex items-center justify-center fixed bottom-0" style="height: 30%;"> <!-- Changed height to 30% of screen height -->
     <p class="text-center">trade details</p>
   </footer>
 </div>
