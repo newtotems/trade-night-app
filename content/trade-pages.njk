@@ -7,15 +7,10 @@ permalink: "/event/trade/{{ eventtrade.id }}/"
 layout: layouts/base-trade.njk
 ---
 
-<div class="h-screen flex flex-col">
-  <header class="h-[5vh] w-full flex items-center justify-center bg-gray-200"> <!-- Changed height to 5% of screen height -->
-    <h1 class="text-lg">Trade Night</h1>
-  </header>
-  <div class="flex flex-1 flex-col md:flex-row h-[65vh]"> <!-- Changed inline style to Tailwind class for 65% height -->
-   test
-  </div>
-  <footer class="h-[30vh] w-full bg-gray-200 flex items-center justify-center fixed bottom-0"> <!-- Changed height to 30% of screen height -->
-    <p class="text-center">trade details</p>
-  </footer>
+
+<div class="flex flex-col h-screen">
+    <header class="flex-none text-center bg-gray-300">Trade Night</header>
+    <main class="flex-1 bg-black text-white">Main Content</main>
+    <footer class="flex-none bg-gray-300">Footer Content</footer>
 </div>
 
