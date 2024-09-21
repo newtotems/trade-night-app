@@ -7,7 +7,6 @@ permalink: "/event/trade/{{ eventtrade.id }}/"
 layout: layouts/base-trade.njk
 ---
 
-
 <div class="flex flex-col h-screen" id="page__trade">
     <header class="fixed top-0 left-0 right-0 text-center text-white flex z-10 items-center"> <!-- Added items-center for vertical alignment -->
       <div class="flex items-center justify-start"> <!-- Removed flex-none -->
@@ -34,8 +33,13 @@ layout: layouts/base-trade.njk
         </div> <!-- Updated to full width and center -->
         <div class="main__content flex-1 w-full h-full flex items-center justify-center relative"> <!-- Added 'relative' class -->
           Right Content
-  <div class="absolute bottom-0 left-0 text-white pointer-events-none p-3">Dave</div>
-          </div> <!-- Updated to full width and center -->
+          <div class="absolute bottom-0 left-0 text-white pointer-events-none p-3">Dave</div>
+         
+          <div class="absolute inset-0 flex items-center justify-center">
+              <div class="w-[45%] h-[90%] bg-transparent border-2 border-dashed border-white" style="aspect-ratio: 2 / 1;"></div>
+          </div>
+         
+        </div> <!-- Updated to full width and center -->
     </main>
     <footer class="flex-none bg-gray-300 flex flex-col w-full"> <!-- Updated to stack items vertically -->
         <div id="trade_indicator" class="flex w-full h-1.5 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
