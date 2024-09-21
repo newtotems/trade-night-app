@@ -28,11 +28,11 @@ layout: layouts/base-trade.njk
     </header> <!-- Updated to overlay with no background -->
     <main class="flex-1 bg-black text-white flex items-center justify-center flex-col md:flex-row"> <!-- Updated to stack on mobile -->
         <div class="main__content flex-1 w-full h-full flex items-center justify-center relative"> <!-- Added 'relative' class -->
-          Left Content
+
           <div class="absolute bottom-0 left-0 text-white pointer-events-none p-3">Dave</div>
         </div> <!-- Updated to full width and center -->
         <div class="main__content flex-1 w-full h-full flex items-center justify-center relative"> <!-- Added 'relative' class -->
-          Right Content
+
           <div class="absolute bottom-0 left-0 text-white pointer-events-none p-3">Dave</div>
          
           <div class="absolute inset-0 flex items-center justify-center">
@@ -49,18 +49,22 @@ layout: layouts/base-trade.njk
         <div id="trade_detail" class="flex w-full text-center items-center"> <!-- Updated to ensure full width and center alignment -->
             <div class="flex-1 text-center"> <!-- Updated to take 50% width and center text -->
                 <p>Trading</p> 
-                <p>
+                <div class="flex items-center"> <!-- Changed to a div with flex for inline display -->
                   <svg class="h-5 w-5 text-white-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <rect x="8" y="8" width="12" height="12" rx="2" />  <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" /></svg>
-                  4</p>
-                <p>£123.45 comp value</p>
+                  <span>4</span> <!-- Wrapped the number in a span for better semantics -->
+                </div>
+                <div class="flex items-center"> £123.45</div>
             </div>
             <div id="trade_button" class="flex-1 justify-center items-center"> <!-- Updated to ensure full width and center alignment -->
             <button class="md:button text-white bg-blue-500 hover:bg-blue-600 py-2 px-4 rounded-lg">Trade</button>
         </div>
             <div class="flex-1 text-center"> <!-- Updated to take 50% width and center text -->
                 <p>Receiving</p> 
-                <p>4 cards</p>
-                <p>£123.45 comp value</p>
+                <div class="flex items-center"> <!-- Changed to a div with flex for inline display -->
+                  <svg class="h-5 w-5 text-white-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <rect x="8" y="8" width="12" height="12" rx="2" />  <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" /></svg>
+                  <span>4</span> <!-- Wrapped the number in a span for better semantics -->
+                </div>
+                <div class="flex items-center"> £123.45</div>
             </div>
         </div>
         
