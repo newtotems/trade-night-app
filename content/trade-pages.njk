@@ -6,11 +6,7 @@ pagination:
 permalink: "/event/trade/{{ eventtrade.id }}/"
 layout: layouts/base-trade.njk
 ---
-<script crossorigin src="https://unpkg.com/@daily-co/daily-js"></script>
-  <script>
-  callFrame = window.DailyIframe.createFrame();
-  callFrame.join({ url: 'https://tradenight.daily.co/hello-daily' });
-</script>
+
 
 <div class="flex flex-col h-screen" id="page__trade">
     <header class="fixed top-0 left-0 right-0 text-center text-white flex z-10 items-center"> <!-- Added items-center for vertical alignment -->
