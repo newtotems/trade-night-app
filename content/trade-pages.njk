@@ -70,12 +70,9 @@ layout: layouts/base-trade.njk
         
         
     </footer>
+
+    {{ eventtrade.id }}
+    {{ eventtrade.eventTypeId }}
+        {{ eventtrade.eventSubTypeId }}
+
 </div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        console.log('type id = ' + {{eventtrade.eventTypeId}});
-         console.log('sub type id = ' + {{eventtrade.eventSubTypeId}}); // Log the eventtrade details object
-    });
-</script>
-
