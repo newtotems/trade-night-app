@@ -74,8 +74,8 @@ layout: layouts/base-trade.njk
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const eventTradeDetails = JSON.stringify({{ eventtrade  }}); // Convert the eventtrade details into a JSON string
-        console.log(eventTradeDetails); // Log the eventtrade details object
+        console.log('type id = ' + {{eventtrade.eventTypeId}});
+         console.log('sub type id = ' + {{eventtrade.eventSubTypeId}}); // Log the eventtrade details object
     });
 </script>
 
