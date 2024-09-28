@@ -36,7 +36,7 @@ layout: layouts/base-trade.njk
           <div class="absolute bottom-0 left-0 text-white pointer-events-none p-3">Dave</div>
          
           <div class="absolute inset-0 flex items-center justify-center">
-              <div id="trade__scan" class="max-h-[90%] w-[calc(50%)] bg-transparent" style="aspect-ratio: 1 / 2;"></div>
+              <div id="trade__scan" class="h-[75%] bg-transparent" style="aspect-ratio: 5 / 7;"></div>
           </div>
          
         </div> <!-- Updated to full width and center -->
@@ -71,4 +71,11 @@ layout: layouts/base-trade.njk
         
     </footer>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const eventTradeDetails = {{ eventtrade | safe }}; // Dump the eventtrade details
+        console.log(eventTradeDetails); // Log the eventtrade details
+    });
+</script>
 
